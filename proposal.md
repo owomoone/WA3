@@ -1,24 +1,36 @@
 # General description of project
-> a zombie apocalypse is occuring :( <br>the zombies get stronger and the amount gets greater as the days pass <br>the objective of the game is to create a light shield out of materials to be obtained in order to successfully ward out the zombies from your country. <br>these materials must be obtained through mining in caves or adventuring in forests, both of which contain significantly more zombies than at the heart of the country, where you reside (for now). <br>certain materials can also / only be obtained through shops with money obtained from selling resources or unneeded materials. <br>you have to purchase additional weapons to defend yourself from the zombies to survive.
+> the project is about programming the game of 掼蛋 / Guandan, a poker game originating from china. it involves
+> a deck of 108 poker cards: 8 x {2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A} & 2 x {Black Joker, Red Joker}
+> 
+> the game is 2v2, with players taking alternating turns. it implements a level system, where the current "level" represents the largest card out of all cards excluding the Jokers. players can increase their team's level by winning games (i.e. one player plays all their cards first), though the increase depends on the other teammate's position. upon reaching the level where A is the greatest card, if one of the team players go first and the other does not go last, they win the game. other playing rules and conditions for winning will be explained within the coded version of the game (hopefully).
 
 #Goals of project
-> by importance: <br>1. figure out all the variables and general parameters of the game (e.g. ammunition, initial money, locations) <br>2. code the shop's systems <br>3. code the death and zombie combat systems, taking into account variables <br>4. code the mining and foraging systems<br>5. implement some way to save user progress <br>6. rework everything because something's definitely going to break <br>7. implement visual/graphic maps of the locations ("neighbourhood", caves, forests) <br>8. work out better user interface (though this can be done slowly during other steps as well)
+> by importance:
+> 1. basic game set-up, rules and guidelines of the game
+> 2. sort out the deck, as well as its shuffling, distributing and sorting systems
+> 3. figure out a reliable way of hiding one's hand (i.e. preventing opponents from seeing your cards)
+> 4. implement a way to group cards (i.e. if a player has a combination of cards that can be played together, they can place them into a separate group)
+> 5. undo or ungroup functions
+> 6. option to actually play cards
+> 7. additional game interface details (i.e. warnings when a certain player goes below a fixed number of cards)
+> 8. way to save current game progress for further playing
+> 9. better card display and illustration on the screen
 
 # Listing of features
-> 1. UI (Ammunition, Health, Money, Current Location, Inventory) <br>
-> 2. Shop/Trading (Materials, Restock, Price List, Random Events) <br>
-> 3. Combat (Kill Luck, Weapon Specifics, Enemy Speed/Health) <br>
-> 4. Caves + Forest (RNG Resource Obtainment, Use of Tools, Zombie Spawn Chance) <br>
-> 5. Some resemblance of a storyline <br>
+> 1. rules page to brief players on how to play the game
+> 2. cards in hand arranged by ranks and suits
+> 3. functions to play, group, undo/ungroup cards
+> 4. clear game interface (i hope)
+> 5. save progress option
 
 # External Scanning
-> I couldn't find many zombie apocalypse games, though I did find multiple zombie apocalypse data simulators which aren't very helpful for the project
+> some mobile games offer the Guandan experience but i am unable to find actual code for the game online.
 
 # Listing of Key Use Cases
-> entertainment probably
+> mainly for entertainment, when someone wants to play the game but does not have a physical deck of cards.
 
 # Skills that my project requires me to pick up
-> figure out how to make good-looking graphics, as well as facilitate smooth gameplay and keeping account information for repeated use
+> figure out how to make decent graphics, as well as saving progress for further use.
 
 # [Development Log](/devlog.md)
 > You will be updating this section regularly
