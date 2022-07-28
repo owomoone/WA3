@@ -3,6 +3,8 @@
 > a deck of 108 poker cards: 8 x {2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A} & 2 x {Black Joker, Red Joker}
 > 
 > the game is 2v2, with players taking alternating turns. it implements a level system, where the current "level" represents the largest card out of all cards excluding the Jokers. players can increase their team's level by winning games (i.e. one player plays all their cards first), though the increase depends on the other teammate's position. upon reaching the level where A is the greatest card, if one of the team players go first and the other does not go last, they win the game. other playing rules and conditions for winning will be explained within the coded version of the game (hopefully).
+>  
+> further explanation of the game: https://en.wikipedia.org/wiki/Guandan#Playing_Guandan
 
 #Goals of project
 > by importance:
