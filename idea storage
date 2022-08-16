@@ -1,0 +1,11 @@
+For saving game data:
+  -Use Pickle?
+https://www.askpython.com/python/examples/save-data-in-python
+
+Display / Game Design:
+  -Pygame
+https://www.techwithtim.net/tutorials/python-online-game-tutorial/#:~:text=Overview,can%20play%20against%20each%20other.
+  -React? maybe a bit complex...
+  -Tkinter
+https://pythonguides.com/python-tkinter-drag-and-drop/#:~:text=Drag%20and%20Drop%20refers%20to,event%20to%20a%20callback%20function.
+https://www.youtube.com/watch?v=YXPyB4XeYLA&ab_channel=freeCodeCamp.org
