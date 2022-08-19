@@ -1,0 +1,211 @@
+#Start
+print("Welcome to Guandan!")
+rules = input("Would you like to go over the rules of the game? (Type Y/N): ")
+if rules == "Y":
+    print("\nThis is a 2v2 game, form your teams now if you have not done so yet. \nNote that players will be alternating turns based on their team.")
+    print("This game uses 2 full poker decks for a total of 108 cards: each player will receive 27 cards.")
+    print("\nDuring each person's turn, they are allowed to either play exactly one type of card, or pass their turn.")
+    print("During one set, players must play the same type of card as the player who initiated the set, but their cards must be of a larger numeric amount than the last player.")
+    print("A set ends when three consecutive players pass, the other player can then start another set with a type of their choice.")
+    print("The aim of the game is to throw out all of the cards in their hand as fast as possible. The one to do so first in a match will win the match.")
+    print("\nTypes of card plays include:")
+    print("\tSingles: One singular card")
+    print("\tPairs: Two cards of the same rank")
+    print("\tTriples: Three cards of the same rank")
+    print("\tPlates: Two consecutive triples, e.g. three 4s and three 5s")
+    print("\tTubes: Three consecutive pairs, e.g. two 3s, two 4s and two 5s")
+    print("\tFull Houses: A triple and a pair. Note that the numeric amount of this type is determined by that of the triple.")
+    print("\tStraights: Five consecutive single cards, e.g. A,2,3,4,5")
+    print("\tBombs: Four or more cards of the same rank. This type of card can be used on any type of card mentioned above. Numeric amounts of this type is determined by the rank of the card, as well as the number of cards.")
+    print("\tStraight Flushes: A straight with all cards being from the same suit. This type can beat all the types mentioned above, except bombs with 6 or more cards. This can be beated by another straight flush of greater numeric amount.")
+    print("\tJoker Bombs: The strongest card combination in the whole game. Formed by all four jokers, it can beat any other type at any given time.")
+    print("\nStarting from 2 for each team, the level will increase if a member from the team wins a match. If the second team member gets second, the level will increase by 3; if they get third it increases by 2; if they get last it increases by 1.")
+    print("Level Cards are the 8 cards with ranks corresponding to the current level. They are stronger in numeric amount than all cards but weaker than the jokers. The starting Level Cards are thus those with rank 2.")
+    print("Wild Cards are the 2 Level Cards in each round that are of the suit Heart. They can be used as any card in the game except the jokers to form all types of plays except the joker bomb.")
+    print("\nNumeric Amounts of cards in ascending (without level cards):")
+    print("\t2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A, Black Joker, Red Joker")
+    print("\nNote that the number of cards in a player's hand will immediately be revealed to all other players if it is 10 or below.")
+    print("\nA team wins the game if they are at level A and win the match of the level given that the other member does not come in last.")
+    print("If the team at level A does not win the match thrice during their level's turn, they will immediately be returned to level 2.")
+    
+ready = input("\nType S to start the game when all players are ready: ")
+if ready == "S":
+    print("Great, now let's start the game!")
+
+    
+
+pname01 = input("Player 1 (Blue Team) please input your name: ")
+pname02 = input("Player 2 (Red Team) please input your name: ")
+pname03 = input("Player 3 (Blue Team) please input your name: ")
+pname04 = input("Player 4 (Red Team) please input your name: ")
+
+#MISC
+
+def RANKSsort(array):
+    sortedlast = []
+    temp = []
+
+    ascOrder = ['2','3','4','5','6','7','8','9','10','J','Q','K','A','Black Joker','Red Joker']
+
+
+    for i in range(len(ascOrder)):
+        for j in range(len(array)):
+            if array[j].getRank() == ascOrder[i]:
+                temp.append(array[j])
+        sortedlast = sortedlast + SUITSsort(temp)
+        temp = []
+
+    for k in range(len(array)):
+        if array[k].getRank() == 'Black Joker':
+            sortedlast.append(Card('Black Joker'))
+    for l in range(len(array)):
+        if array[l].getRank() == 'Red Joker':
+            sortedlast.append(Card('Red Joker'))
+    
+    return(sortedlast)
+
+def SUITSsort(aRay):
+    temp2 = []
+    for i in range(len(aRay)):
+        if aRay[i].getSuit() == '♠':
+            temp2.append(aRay[i])
+    for i in range(len(aRay)):
+        if aRay[i].getSuit() == '♣':
+            temp2.append(aRay[i])
+    for i in range(len(aRay)):
+        if aRay[i].getSuit() == '♡':
+            temp2.append(aRay[i])
+    for i in range(len(aRay)):
+        if aRay[i].getSuit() == '♢':
+            temp2.append(aRay[i])
+
+    return(temp2)
+
+#CLASSES
+
+import random
+
+class Card:
+    def __init__(self, erank, esuit = None):
+        self.rank = erank
+        self.suit = esuit
+    def getRank(self):
+        return self.rank
+    def getSuit(self):
+        return self.suit
+    def reveal(self):
+        if self.suit != None:
+            print("{} of {}".format(self.rank,self.suit))
+        else:
+            print(self.rank)
+
+class Deck: 
+    ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+    suits = ['♠', '♡', '♢', '♣', '♠', '♡', '♢', '♣']
+        
+    def __init__(self): 
+        self.deck = [Card("Black Joker"), Card("Black Joker"), Card("Red Joker"), Card("Red Joker")]
+        for i in Deck.ranks: 
+            for j in Deck.suits:
+                self.deck.append(Card(i, j))
+                         
+    def shuffle(self): 
+        random.shuffle(self.deck)
+
+    def reveal(self):
+        for i in self.deck:
+            i.reveal()
+        
+    def dealCard(self):
+        return self.deck.pop()
+
+
+class Player:
+    def __init__(self, ename):
+        self.hand = []
+        self.name = ename
+
+    def givename(self):
+        return self.name
+
+    def addtohand(self, deckname, amt):
+        deckname.shuffle()
+        for i in range(amt):
+            self.hand.append(deckname.dealCard())
+        self.hand = RANKSsort(self.hand)
+        
+
+    def showhand(self):
+        c = 1
+        for i in self.hand:
+            if i.suit != None and c < 10:
+                print("Index " + str(c) + "  | " + "{} of {}".format(i.rank,i.suit))
+                c += 1
+            elif i.suit != None and c >= 10:
+                print("Index " + str(c) + " | " + "{} of {}".format(i.rank,i.suit))
+                c += 1
+            else: #it is impossible for jokers to be in the first 9 cards of a hand
+                print("Index " + str(c) + " | " + i.rank)
+                c += 1
+        c = 1
+
+    def playcard(self, idx1, idx2 = None, idx3 = None, idx4 = None, idx5 = None, idx6 = None, idx7 = None, idx8 = None):
+        #assuming no grouping yet, all cards are single
+
+#Singles
+        if idx2 == None:
+            self.hand.pop(idx1 - 1).reveal()
+#Pairs
+        elif idx2 != None and idx3 == None:
+            if self.hand[idx1 - 1].getRank() == self.hand[idx2 - 1].getRank():
+                self.hand.pop(idx1 - 1).reveal()
+                self.hand.pop(idx2 - 1).reveal()
+#Triples
+        elif idx3 != None and idx4 == None:
+            if self.hand[idx1 - 1].getRank() == self.hand[idx2 - 1].getRank() == self.hand[idx3 - 1].getRank():
+                self.hand.pop(idx1 - 1).reveal()
+                self.hand.pop(idx2 - 1).reveal()
+                self.hand.pop(idx3 - 1).reveal()
+#Plates
+        elif idx6 != None and idx7 == None:
+            temp3 = []
+            temp3.append(self.hand[idx1 - 1])
+            temp3.append(self.hand[idx2 - 1])
+            temp3.append(self.hand[idx3 - 1])
+            temp3.append(self.hand[idx4 - 1])
+            temp3.append(self.hand[idx5 - 1])
+            temp3.append(self.hand[idx6 - 1])
+            temp3 = RANKSsort(temp3)
+            if temp3[5].getSuit != None:
+                if temp3[0].getRank() == temp3[1].getRank() == temp3[2].getRank() and temp3[3].getRank() == temp3[4].getRank() == temp3[5].getRank() and int(temp3[3].getRank()) - int(temp3[2].getRank()) == 1:
+                    for i in temp3:
+                        i.reveal()
+                    del self.hand[idx1 - 1]
+                    del self.hand[idx2 - 1]
+                    del self.hand[idx3 - 1]
+                    del self.hand[idx4 - 1]
+                    del self.hand[idx5 - 1]
+                    del self.hand[idx6 - 1]
+#Tubes
+#Full House
+#Straight
+#Bomb
+#Straight Flush
+#Joker Bomb
+
+            
+
+#ACTUALGAMECODE===ACTUALGAMECODE===ACTUALGAMECODE===ACTUALGAMECODE#
+#ACTUALGAMECODE===ACTUALGAMECODE===ACTUALGAMECODE===ACTUALGAMECODE#
+#ACTUALGAMECODE===ACTUALGAMECODE===ACTUALGAMECODE===ACTUALGAMECODE#
+
+DEALPILE = Deck()
+player01 = Player(pname01)
+player02 = Player(pname02)
+player03 = Player(pname03)
+player04 = Player(pname04)
+
+player01.addtohand(DEALPILE, 27)
+player02.addtohand(DEALPILE, 27)
+player03.addtohand(DEALPILE, 27)
+player04.addtohand(DEALPILE, 27)
