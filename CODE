@@ -1,5 +1,5 @@
 #Start
-print("Welcome to Guandan!")
+print("Welcome to 掼蛋 Guandan!")
 rules = input("Would you like to go over the rules of the game? (Type Y/N): ")
 if rules == "Y":
     print("\nThis is a 2v2 game, form your teams now if you have not done so yet. \nNote that players will be alternating turns based on their team.")
@@ -9,16 +9,16 @@ if rules == "Y":
     print("A set ends when three consecutive players pass, the other player can then start another set with a type of their choice.")
     print("The aim of the game is to throw out all of the cards in their hand as fast as possible. The one to do so first in a match will win the match.")
     print("\nTypes of card plays include:")
-    print("\tSingles: One singular card")
-    print("\tPairs: Two cards of the same rank")
-    print("\tTriples: Three cards of the same rank")
-    print("\tPlates: Two consecutive triples, e.g. three 4s and three 5s")
-    print("\tTubes: Three consecutive pairs, e.g. two 3s, two 4s and two 5s")
-    print("\tFull Houses: A triple and a pair. Note that the numeric amount of this type is determined by that of the triple.")
-    print("\tStraights: Five consecutive single cards, e.g. A,2,3,4,5")
-    print("\tBombs: Four or more cards of the same rank. This type of card can be used on any type of card mentioned above. Numeric amounts of this type is determined by the rank of the card, as well as the number of cards.")
-    print("\tStraight Flushes: A straight with all cards being from the same suit. This type can beat all the types mentioned above, except bombs with 6 or more cards. This can be beated by another straight flush of greater numeric amount.")
-    print("\tJoker Bombs: The strongest card combination in the whole game. Formed by all four jokers, it can beat any other type at any given time.")
+    print("\t单张 Singles: One singular card")
+    print("\t对子 Pairs: Two cards of the same rank")
+    print("\t三同张 Triples: Three cards of the same rank")
+    print("\t钢板 Plates: Two consecutive triples, e.g. three 4s and three 5s")
+    print("\t三连对 Tubes: Three consecutive pairs, e.g. two 3s, two 4s and two 5s")
+    print("\t三带二 Full Houses: A triple and a pair. Note that the numeric amount of this type is determined by that of the triple.")
+    print("\t顺子 Straights: Five consecutive single cards, e.g. A,2,3,4,5")
+    print("\t炸弹 Bombs: Four or more cards of the same rank. This type of card can be used on any type of card mentioned above. Numeric amounts of this type is determined by the rank of the card, as well as the number of cards.")
+    print("\t同花顺 Straight Flushes: A straight with all cards being from the same suit. This type can beat all the types mentioned above, except bombs with 6 or more cards. This can be beated by another straight flush of greater numeric amount.")
+    print("\t天王炸 Joker Bombs: The strongest card combination in the whole game. Formed by all four jokers, it can beat any other type at any given time.")
     print("\nStarting from 2 for each team, the level will increase if a member from the team wins a match. If the second team member gets second, the level will increase by 3; if they get third it increases by 2; if they get last it increases by 1.")
     print("Level Cards are the 8 cards with ranks corresponding to the current level. They are stronger in numeric amount than all cards but weaker than the jokers. The starting Level Cards are thus those with rank 2.")
     print("Wild Cards are the 2 Level Cards in each round that are of the suit Heart. They can be used as any card in the game except the jokers to form all types of plays except the joker bomb.")
@@ -176,7 +176,7 @@ class Player:
             temp3.append(self.hand[idx5 - 1])
             temp3.append(self.hand[idx6 - 1])
             temp3 = RANKSsort(temp3)
-            if temp3[5].getSuit != None:
+            if temp3[5].getSuit() != None:
                 if temp3[0].getRank() == temp3[1].getRank() == temp3[2].getRank() and temp3[3].getRank() == temp3[4].getRank() == temp3[5].getRank() and int(temp3[3].getRank()) - int(temp3[2].getRank()) == 1:
                     for i in temp3:
                         i.reveal()
@@ -187,11 +187,54 @@ class Player:
                     del self.hand[idx5 - 1]
                     del self.hand[idx6 - 1]
 #Tubes
+            if temp3[5].getSuit() != None:
+                if temp3[0].getRank() == temp3[1].getRank() and temp3[2].getRank() == temp3[3].getRank() and temp3[4].getRank() == temp3[5].getRank():
+                    for i in temp3:
+                        i.reveal()
+                    del self.hand[idx1 - 1]
+                    del self.hand[idx2 - 1]
+                    del self.hand[idx3 - 1]
+                    del self.hand[idx4 - 1]
+                    del self.hand[idx5 - 1]
+                    del self.hand[idx6 - 1]
+                    
 #Full House
+        elif idx5 != None and idx6 == None:
+            temp4 = []
+            temp4.append(self.hand[idx1 - 1])
+            temp4.append(self.hand[idx2 - 1])
+            temp4.append(self.hand[idx3 - 1])
+            temp4.append(self.hand[idx4 - 1])
+            temp4.append(self.hand[idx5 - 1])
+            temp4 = RANKSsort(temp4)
+            if temp4[4].getSuit() != None:
+                if temp4[0].getRank() == temp4[1].getRank() == temp4[2].getRank() and temp4[3].getRank() == temp4[4].getRank():
+                    if temp4[1].getRank() != temp4[2].getRank() or temp4[2].getRank() != temp4[3].getRank():
+                        for i in temp4:
+                            i.reveal()
+                        del self.hand[idx1 - 1]
+                        del self.hand[idx2 - 1]
+                        del self.hand[idx3 - 1]
+                        del self.hand[idx4 - 1]
+                        del self.hand[idx5 - 1]
+                if temp4[0].getRank() == temp4[1].getRank() and temp4[2].getRank() == temp4[3].getRank() == temp4[4].getRank():
+                    if temp4[1].getRank() != temp4[2].getRank() or temp4[2].getRank() != temp4[3].getRank():
+                        for i in temp4:
+                            i.reveal()
+                        del self.hand[idx1 - 1]
+                        del self.hand[idx2 - 1]
+                        del self.hand[idx3 - 1]
+                        del self.hand[idx4 - 1]
+                        del self.hand[idx5 - 1]
+                        
+                        #FIX THE ID SYSTEM SUCH THAT THE CARDS TO BE DELETED ARE DONE AT THE SAME TIME, OTHERWISE FURTHER ID REMOVALS WILL BE INCORRECT
+            
 #Straight
 #Bomb
 #Straight Flush
 #Joker Bomb
+
+                        #ADD A BOOL(T/F) TO PASS FUNCTIONS WHEN ONE TYPE OF MOVE HAS BEEN CONFIRMED
 
             
 
