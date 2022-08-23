@@ -1,4 +1,5 @@
 #Start
+
 print("Welcome to 掼蛋 Guandan!")
 rules = input("Would you like to go over the rules of the game? (Type Y/N): ")
 if rules == "Y":
@@ -81,6 +82,21 @@ def SUITSsort(aRay):
 
     return(temp2)
 
+def QUICKsort(array): # recursive
+    if len(array) < 2:
+        return array
+    pivot = array[0] # select pivot to be front
+    left_part = [] # left_part is everything smaller than pivot value
+    right_part = [] # right_part is everything larger than pivot value
+    for i in range(1, len(array)):
+        if array[i] <= pivot: # to sort in DESCENDING ORDER, change < to >
+            left_part.append(array[i])
+        else:
+            right_part.append(array[i])
+    sorted_left = QUICKsort(left_part) 
+    sorted_right = QUICKsort(right_part)
+    return sorted_left + [pivot] + sorted_right
+
 #CLASSES
 
 import random
@@ -89,10 +105,29 @@ class Card:
     def __init__(self, erank, esuit = None):
         self.rank = erank
         self.suit = esuit
+        
     def getRank(self):
         return self.rank
+
+    def getRankButInteger(self):
+        if self.rank == "J":
+            return "11"
+        elif self.rank == "Q":
+            return "12"
+        elif self.rank == "K":
+            return "13"
+        elif self.rank == "A":
+            return "14"
+        elif self.rank == "Black Joker":
+            return "1000"
+        elif self.rank == "Red Joker":
+            return "2000"
+        else:
+            return self.rank
+    
     def getSuit(self):
         return self.suit
+    
     def reveal(self):
         if self.suit != None:
             print("{} of {}".format(self.rank,self.suit))
@@ -144,7 +179,9 @@ class Player:
             elif i.suit != None and c >= 10:
                 print("Index " + str(c) + " | " + "{} of {}".format(i.rank,i.suit))
                 c += 1
-            else: #it is impossible for jokers to be in the first 9 cards of a hand
+            elif i.suit == None and c < 10:
+                print("Index " + str(c) + "  | " + i.rank)
+            else: 
                 print("Index " + str(c) + " | " + i.rank)
                 c += 1
         c = 1
@@ -157,15 +194,17 @@ class Player:
             self.hand.pop(idx1 - 1).reveal()
 #Pairs
         elif idx2 != None and idx3 == None:
+            indexOrder1 = QUICKsort([idx1, idx2])
             if self.hand[idx1 - 1].getRank() == self.hand[idx2 - 1].getRank():
-                self.hand.pop(idx1 - 1).reveal()
-                self.hand.pop(idx2 - 1).reveal()
+                self.hand.pop(indexOrder1[1] - 1).reveal()
+                self.hand.pop(indexOrder1[0] - 1).reveal()
 #Triples
         elif idx3 != None and idx4 == None:
+            indexOrder2 = QUICKsort([idx1, idx2, idx3])
             if self.hand[idx1 - 1].getRank() == self.hand[idx2 - 1].getRank() == self.hand[idx3 - 1].getRank():
-                self.hand.pop(idx1 - 1).reveal()
-                self.hand.pop(idx2 - 1).reveal()
-                self.hand.pop(idx3 - 1).reveal()
+                self.hand.pop(indexOrder1[2] - 1).reveal()
+                self.hand.pop(indexOrder1[1] - 1).reveal()
+                self.hand.pop(indexOrder1[0] - 1).reveal()
 #Plates
         elif idx6 != None and idx7 == None:
             temp3 = []
@@ -176,27 +215,31 @@ class Player:
             temp3.append(self.hand[idx5 - 1])
             temp3.append(self.hand[idx6 - 1])
             temp3 = RANKSsort(temp3)
+            indexOrder3 = QUICKsort([idx1, idx2, idx3, idx4, idx5, idx6])
+            
             if temp3[5].getSuit() != None:
-                if temp3[0].getRank() == temp3[1].getRank() == temp3[2].getRank() and temp3[3].getRank() == temp3[4].getRank() == temp3[5].getRank() and int(temp3[3].getRank()) - int(temp3[2].getRank()) == 1:
+                if temp3[0].getRank() == temp3[1].getRank() == temp3[2].getRank() and temp3[3].getRank() == temp3[4].getRank() == temp3[5].getRank() and int(temp3[3].getRankButInteger()) - int(temp3[2].getRankButInteger()) == 1:
                     for i in temp3:
                         i.reveal()
-                    del self.hand[idx1 - 1]
-                    del self.hand[idx2 - 1]
-                    del self.hand[idx3 - 1]
-                    del self.hand[idx4 - 1]
-                    del self.hand[idx5 - 1]
-                    del self.hand[idx6 - 1]
+                    del self.hand[indexOrder3[5]-1]
+                    del self.hand[indexOrder3[4]-1]
+                    del self.hand[indexOrder3[3]-1]
+                    del self.hand[indexOrder3[2]-1]
+                    del self.hand[indexOrder3[1]-1]
+                    del self.hand[indexOrder3[0]-1]
+
+                    
 #Tubes
             if temp3[5].getSuit() != None:
-                if temp3[0].getRank() == temp3[1].getRank() and temp3[2].getRank() == temp3[3].getRank() and temp3[4].getRank() == temp3[5].getRank():
+                if temp3[0].getRank() == temp3[1].getRank() and temp3[2].getRank() == temp3[3].getRank() and temp3[4].getRank() == temp3[5].getRank() and int(temp3[4].getRankButInteger()) - int(temp3[3].getRankButInteger()) == 1 and int(temp3[2].getRankButInteger()) - int(temp3[1].getRankButInteger()) == 1:
                     for i in temp3:
                         i.reveal()
-                    del self.hand[idx1 - 1]
-                    del self.hand[idx2 - 1]
-                    del self.hand[idx3 - 1]
-                    del self.hand[idx4 - 1]
-                    del self.hand[idx5 - 1]
-                    del self.hand[idx6 - 1]
+                    del self.hand[indexOrder3[5]-1]
+                    del self.hand[indexOrder3[4]-1]
+                    del self.hand[indexOrder3[3]-1]
+                    del self.hand[indexOrder3[2]-1]
+                    del self.hand[indexOrder3[1]-1]
+                    del self.hand[indexOrder3[0]-1]
                     
 #Full House
         elif idx5 != None and idx6 == None:
@@ -207,31 +250,49 @@ class Player:
             temp4.append(self.hand[idx4 - 1])
             temp4.append(self.hand[idx5 - 1])
             temp4 = RANKSsort(temp4)
-            if temp4[4].getSuit() != None:
-                if temp4[0].getRank() == temp4[1].getRank() == temp4[2].getRank() and temp4[3].getRank() == temp4[4].getRank():
-                    if temp4[1].getRank() != temp4[2].getRank() or temp4[2].getRank() != temp4[3].getRank():
-                        for i in temp4:
-                            i.reveal()
-                        del self.hand[idx1 - 1]
-                        del self.hand[idx2 - 1]
-                        del self.hand[idx3 - 1]
-                        del self.hand[idx4 - 1]
-                        del self.hand[idx5 - 1]
-                if temp4[0].getRank() == temp4[1].getRank() and temp4[2].getRank() == temp4[3].getRank() == temp4[4].getRank():
-                    if temp4[1].getRank() != temp4[2].getRank() or temp4[2].getRank() != temp4[3].getRank():
-                        for i in temp4:
-                            i.reveal()
-                        del self.hand[idx1 - 1]
-                        del self.hand[idx2 - 1]
-                        del self.hand[idx3 - 1]
-                        del self.hand[idx4 - 1]
-                        del self.hand[idx5 - 1]
+            indexOrder4 = QUICKsort([idx1, idx2, idx3, idx4, idx5])
+            
+            if temp4[0].getRank() == temp4[1].getRank() == temp4[2].getRank() and temp4[3].getRank() == temp4[4].getRank():
+                if temp4[1].getRank() != temp4[2].getRank() or temp4[2].getRank() != temp4[3].getRank():
+                    for i in temp4:
+                        i.reveal()
+                    del self.hand[indexOrder4[4]-1]
+                    del self.hand[indexOrder4[3]-1]
+                    del self.hand[indexOrder4[2]-1]
+                    del self.hand[indexOrder4[1]-1]
+                    del self.hand[indexOrder4[0]-1]
+            if temp4[0].getRank() == temp4[1].getRank() and temp4[2].getRank() == temp4[3].getRank() == temp4[4].getRank():
+                if temp4[1].getRank() != temp4[2].getRank() or temp4[2].getRank() != temp4[3].getRank():
+                    for i in temp4:
+                        i.reveal()
+                    del self.hand[indexOrder4[4]-1]
+                    del self.hand[indexOrder4[3]-1]
+                    del self.hand[indexOrder4[2]-1]
+                    del self.hand[indexOrder4[1]-1]
+                    del self.hand[indexOrder4[0]-1]
                         
-                        #FIX THE ID SYSTEM SUCH THAT THE CARDS TO BE DELETED ARE DONE AT THE SAME TIME, OTHERWISE FURTHER ID REMOVALS WILL BE INCORRECT
+#Straight Flush
+            if temp4[4].getSuit() != None and int(temp4[4].getRankButBetter()) - int(temp4[3].getRankButBetter()) == 1 and int(temp4[3].getRankButBetter()) - int(temp4[2].getRankButBetter()) == 1 and int(temp4[2].getRankButBetter()) - int(temp4[1].getRankButBetter()) == 1 and int(temp4[1].getRankButBetter()) - int(temp4[0].getRankButBetter()) == 1:
+                if temp4[4].getSuit() == temp4[3].getSuit() and temp4[3].getSuit() == temp4[2].getSuit() and temp4[2].getSuit() == temp4[1].getSuit() and temp4[1].getSuit() == temp4[0].getSuit():
+                    for i in temp4:
+                        i.reveal()
+                    del self.hand[indexOrder4[4]-1]
+                    del self.hand[indexOrder4[3]-1]
+                    del self.hand[indexOrder4[2]-1]
+                    del self.hand[indexOrder4[1]-1]
+                    del self.hand[indexOrder4[0]-1]
             
 #Straight
+                else:
+                    for i in temp4:
+                        i.reveal()
+                    del self.hand[indexOrder4[4]-1]
+                    del self.hand[indexOrder4[3]-1]
+                    del self.hand[indexOrder4[2]-1]
+                    del self.hand[indexOrder4[1]-1]
+                    del self.hand[indexOrder4[0]-1]
+
 #Bomb
-#Straight Flush
 #Joker Bomb
 
                         #ADD A BOOL(T/F) TO PASS FUNCTIONS WHEN ONE TYPE OF MOVE HAS BEEN CONFIRMED
