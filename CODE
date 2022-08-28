@@ -1,46 +1,102 @@
 #Start
 
 print("Welcome to 掼蛋 Guandan!")
-rules = input("Would you like to go over the rules of the game? (Type Y/N): ")
-if rules == "Y":
-    print("\nThis is a 2v2 game, form your teams now if you have not done so yet. \nNote that players will be alternating turns based on their team.")
-    print("This game uses 2 full poker decks for a total of 108 cards: each player will receive 27 cards.")
-    print("\nDuring each person's turn, they are allowed to either play exactly one type of card, or pass their turn.")
-    print("During one set, players must play the same type of card as the player who initiated the set, but their cards must be of a larger numeric amount than the last player.")
-    print("A set ends when three consecutive players pass, the other player can then start another set with a type of their choice.")
-    print("The aim of the game is to throw out all of the cards in their hand as fast as possible. The one to do so first in a match will win the match.")
-    print("\nTypes of card plays include:")
-    print("\t单张 Singles: One singular card")
-    print("\t对子 Pairs: Two cards of the same rank")
-    print("\t三同张 Triples: Three cards of the same rank")
-    print("\t钢板 Plates: Two consecutive triples, e.g. three 4s and three 5s")
-    print("\t三连对 Tubes: Three consecutive pairs, e.g. two 3s, two 4s and two 5s")
-    print("\t三带二 Full Houses: A triple and a pair. Note that the numeric amount of this type is determined by that of the triple.")
-    print("\t顺子 Straights: Five consecutive single cards, e.g. A,2,3,4,5")
-    print("\t炸弹 Bombs: Four or more cards of the same rank. This type of card can be used on any type of card mentioned above. Numeric amounts of this type is determined by the rank of the card, as well as the number of cards.")
-    print("\t同花顺 Straight Flushes: A straight with all cards being from the same suit. This type can beat all the types mentioned above, except bombs with 6 or more cards. This can be beated by another straight flush of greater numeric amount.")
-    print("\t天王炸 Joker Bombs: The strongest card combination in the whole game. Formed by all four jokers, it can beat any other type at any given time.")
-    print("\nStarting from 2 for each team, the level will increase if a member from the team wins a match. If the second team member gets second, the level will increase by 3; if they get third it increases by 2; if they get last it increases by 1.")
-    print("Level Cards are the 8 cards with ranks corresponding to the current level. They are stronger in numeric amount than all cards but weaker than the jokers. The starting Level Cards are thus those with rank 2.")
-    print("Wild Cards are the 2 Level Cards in each round that are of the suit Heart. They can be used as any card in the game except the jokers to form all types of plays except the joker bomb.")
-    print("\nNumeric Amounts of cards in ascending (without level cards):")
-    print("\t2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A, Black Joker, Red Joker")
-    print("\nNote that the number of cards in a player's hand will immediately be revealed to all other players if it is 10 or below.")
-    print("\nA team wins the game if they are at level A and win the match of the level given that the other member does not come in last.")
-    print("If the team at level A does not win the match thrice during their level's turn, they will immediately be returned to level 2.")
-    
-ready = input("\nType S to start the game when all players are ready: ")
-if ready == "S":
-    print("Great, now let's start the game!")
+commonBool = True
 
+while commonBool == True:
+    rules = input("Would you like to go over the rules of the game? (Type Y/N): ")
+    if rules == "Y":
+        print("\nThis is a 2v2 game, form your teams now if you have not done so yet. \nNote that players will be alternating turns based on their team.")
+        print("This game uses 2 full poker decks for a total of 108 cards: each player will receive 27 cards.")
+        print("\nDuring each person's turn, they are allowed to either play exactly one type of card, or pass their turn.")
+        print("During one set, players must play the same type of card as the player who initiated the set, but their cards must be of a larger numeric amount than the last player.")
+        print("A set ends when three consecutive players pass, the other player can then start another set with a type of their choice.")
+        print("The aim of the game is to throw out all of the cards in their hand as fast as possible. The one to do so first in a match will win the match.")
+        print("\nTypes of card plays include:")
+        print("\t单张 Singles: One singular card")
+        print("\t对子 Pairs: Two cards of the same rank")
+        print("\t三同张 Triples: Three cards of the same rank")
+        print("\t钢板 Plates: Two consecutive triples, e.g. three 4s and three 5s")
+        print("\t三连对 Tubes: Three consecutive pairs, e.g. two 3s, two 4s and two 5s")
+        print("\t三带二 Full Houses: A triple and a pair. Note that the numeric amount of this type is determined by that of the triple.")
+        print("\t顺子 Straights: Five consecutive single cards, e.g. A,2,3,4,5")
+        print("\t炸弹 Bombs: Four or more cards of the same rank. This type of card can be used on any type of card mentioned above. Numeric amounts of this type is determined by the rank of the card, as well as the number of cards.")
+        print("\t同花顺 Straight Flushes: A straight with all cards being from the same suit. This type can beat all the types mentioned above, except bombs with 6 or more cards. This can be beated by another straight flush of greater numeric amount.")
+        print("\t天王炸 Joker Bombs: The strongest card combination in the whole game. Formed by all four jokers, it can beat any other type at any given time.")
+        print("\nStarting from 2 for each team, the level will increase if a member from the team wins a match. If the second team member gets second, the level will increase by 3; if they get third it increases by 2; if they get last it increases by 1.")
+        print("Level Cards are the 8 cards with ranks corresponding to the current level. They are stronger in numeric amount than all cards but weaker than the jokers. The starting Level Cards are thus those with rank 2.")
+        print("Wild Cards are the 2 Level Cards in each round that are of the suit Heart. They can be used as any card in the game except the jokers to form all types of plays except the joker bomb.")
+        print("\nNumeric Amounts of cards in ascending (without level cards):")
+        print("\t2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A, Black Joker, Red Joker")
+        print("\nNote that the number of cards in a player's hand will immediately be revealed to all other players if it is 10 or below.")
+        print("\nA team wins the game if they are at level A and win the match of the level given that the other member does not come in last.")
+        print("If the team at level A does not win the match thrice during their level's turn, they will immediately be returned to level 2.")
+        print("============================================ \n")
+        commonBool = False
+        
+    elif rules == "N":
+        print("The rules have been skipped, on to the game! \n")
+        commonBool = False
+        
+    else:
+        print("Invalid input, please enter either Y or N (case-sensitive)! \n")
     
+commonBool = True
 
-pname01 = input("Player 1 (Blue Team) please input your name: ")
-pname02 = input("Player 2 (Red Team) please input your name: ")
-pname03 = input("Player 3 (Blue Team) please input your name: ")
-pname04 = input("Player 4 (Red Team) please input your name: ")
+while commonBool == True:
+    ready = input("Type S to start the game when all players are ready: ")
+    if ready == "S":
+        print("Great, now let's start the game!")
+        print("============================================ \n")
+        commonBool = False
+    else:
+        print("Please enter only 'S' (case-sensitive) when everyone is ready! \n")
+
+
+while True:
+    try:
+        pname01 = str(input("Player 1 (Blue Team) please input your name: "))
+        if pname01 != "":
+            break
+        print("Your name cannot be blank. \n")
+    except Exception:
+        print("Please enter a valid name (no unicodes). \n")
+while True:
+    try:
+        pname02 = str(input("Player 2 (Red Team) please input your name: "))
+        if pname02 != "":
+            break
+        print("Your name cannot be blank. \n")
+    except Exception:
+        print("Please enter a valid name (no unicodes). \n")
+while True:
+    try:
+        pname03 = str(input("Player 3 (Blue Team) please input your name: "))
+        if pname03 != "":
+            break
+        print("Your name cannot be blank. \n")
+    except Exception:
+        print("Please enter a valid name (no unicodes). \n")
+while True:
+    try:
+        pname04 = str(input("Player 4 (Red Team) please input your name: "))
+        if pname04 != "":
+            break
+        print("Your name cannot be blank. \n")
+    except Exception:
+        print("Please enter a valid name (no unicodes). \n")
 
 #MISC
+
+lastPlayType = "" #this indicates what the previous play was to determine if a move is illegal or valid
+#for ease of notation, the first letters of each word in the types of moves will be used (e.g. Straight Flush is represented as "SF")
+#if two types of moves share the same initials, they will be differentiated by adding the second letter (e.g. Pairs = "Pa", Plates = "Pl")
+#in the case of non-Joker Bombs, a number is appended before its symbol "B" to represent how many cards are in the Bomb
+
+lastPlayMagnitude = 0 #this indicates how large the previous play was to determine if a move is illegal or valid (tgt with lastPlayType)
+
+RoundNumber = 1 #this indicates the current round
+#a round ends when all 4 players have made an input (input = playing card(s) or passing their turn)
 
 def RANKSsort(array):
     sortedlast = []
@@ -111,19 +167,19 @@ class Card:
 
     def getRankButInteger(self):
         if self.rank == "J":
-            return "11"
+            return 11
         elif self.rank == "Q":
-            return "12"
+            return 12
         elif self.rank == "K":
-            return "13"
+            return 13
         elif self.rank == "A":
-            return "14"
+            return 14
         elif self.rank == "Black Joker":
-            return "1000"
+            return 1000
         elif self.rank == "Red Joker":
-            return "2000"
+            return 2000
         else:
-            return self.rank
+            return int(self.rank)
     
     def getSuit(self):
         return self.suit
@@ -156,6 +212,14 @@ class Deck:
 
 
 class Player:
+
+    lastPlayType = "" #this indicates what the previous play was to determine if a move is illegal or valid
+    #for ease of notation, the first letters of each word in the types of moves will be used (e.g. Straight Flush is represented as "SF")
+    #if two types of moves share the same initials, they will be differentiated by adding the second letter (e.g. Pairs = "Pa", Plates = "Pl")
+    #in the case of non-Joker Bombs, a number is appended before its symbol "B" to represent how many cards are in the Bomb
+
+    lastPlayMagnitude = 0 #this indicates how large the previous play was to determine if a move is illegal or valid (tgt with lastPlayType)
+    
     def __init__(self, ename):
         self.hand = []
         self.name = ename
@@ -190,21 +254,28 @@ class Player:
         #assuming no grouping yet, all cards are single
 
 #Singles
-        if idx2 == None:
+        if idx2 == None and Player.lastPlayMagnitude < self.hand[idx1 - 1].getRankButInteger() and Player.lastPlayType == "Si" or Player.lastPlayType == "":
+            Player.lastPlayMagnitude = self.hand[idx1 - 1].getRankButInteger()
             self.hand.pop(idx1 - 1).reveal()
+            Player.lastPlayType = "Si"
+            
 #Pairs
-        elif idx2 != None and idx3 == None:
+        elif idx2 != None and idx3 == None and Player.lastPlayMagnitude < self.hand[idx1 - 1].getRankButInteger() and Player.lastPlayType == "Pa" or Player.lastPlayType == "":
             indexOrder1 = QUICKsort([idx1, idx2])
             if self.hand[idx1 - 1].getRank() == self.hand[idx2 - 1].getRank():
+                Player.lastPlayMagnitude = self.hand[idx1 - 1].getRankButInteger()
                 self.hand.pop(indexOrder1[1] - 1).reveal()
                 self.hand.pop(indexOrder1[0] - 1).reveal()
+                Player.lastPlayType = "Pa"
 #Triples
-        elif idx3 != None and idx4 == None:
+        elif idx3 != None and idx4 == None and Player.lastPlayMagnitude < self.hand[idx1 - 1].getRankButInteger() and Player.lastPlayType == "Tr" or Player.lastPlayType == "":
             indexOrder2 = QUICKsort([idx1, idx2, idx3])
             if self.hand[idx1 - 1].getRank() == self.hand[idx2 - 1].getRank() == self.hand[idx3 - 1].getRank():
+                Player.lastPlayMagnitude = self.hand[idx1 - 1].getRankButInteger()
                 self.hand.pop(indexOrder1[2] - 1).reveal()
                 self.hand.pop(indexOrder1[1] - 1).reveal()
                 self.hand.pop(indexOrder1[0] - 1).reveal()
+                Player.lastPlayType = "Tr"
 #Plates
         elif idx6 != None and idx7 == None:
             temp3 = []
@@ -218,28 +289,32 @@ class Player:
             indexOrder3 = QUICKsort([idx1, idx2, idx3, idx4, idx5, idx6])
             
             if temp3[5].getSuit() != None:
-                if temp3[0].getRank() == temp3[1].getRank() == temp3[2].getRank() and temp3[3].getRank() == temp3[4].getRank() == temp3[5].getRank() and int(temp3[3].getRankButInteger()) - int(temp3[2].getRankButInteger()) == 1:
+                if temp3[0].getRank() == temp3[1].getRank() == temp3[2].getRank() and temp3[3].getRank() == temp3[4].getRank() == temp3[5].getRank() and temp3[3].getRankButInteger() - temp3[2].getRankButInteger() == 1 and Player.lastPlayMagnitude < indexOrder3[5] and Player.lastPlayType == "Pl" or Player.lastPlayType == "":
                     for i in temp3:
                         i.reveal()
+                    Player.lastPlayMagnitude = indexOrder3[5]
                     del self.hand[indexOrder3[5]-1]
                     del self.hand[indexOrder3[4]-1]
                     del self.hand[indexOrder3[3]-1]
                     del self.hand[indexOrder3[2]-1]
                     del self.hand[indexOrder3[1]-1]
                     del self.hand[indexOrder3[0]-1]
+                    Player.lastPlayType = "Pl"
 
                     
 #Tubes
             if temp3[5].getSuit() != None:
-                if temp3[0].getRank() == temp3[1].getRank() and temp3[2].getRank() == temp3[3].getRank() and temp3[4].getRank() == temp3[5].getRank() and int(temp3[4].getRankButInteger()) - int(temp3[3].getRankButInteger()) == 1 and int(temp3[2].getRankButInteger()) - int(temp3[1].getRankButInteger()) == 1:
+                if temp3[0].getRank() == temp3[1].getRank() and temp3[2].getRank() == temp3[3].getRank() and temp3[4].getRank() == temp3[5].getRank() and temp3[4].getRankButInteger() - temp3[3].getRankButInteger() == temp3[2].getRankButInteger() - temp3[1].getRankButInteger() == 1 and Player.lastPlayMagnitude < indexOrder3[5] and Player.lastPlayType == "Tu" or Player.lastPlayType == "":
                     for i in temp3:
                         i.reveal()
+                    Player.lastPlayMagnitude = indexOrder3[5]
                     del self.hand[indexOrder3[5]-1]
                     del self.hand[indexOrder3[4]-1]
                     del self.hand[indexOrder3[3]-1]
                     del self.hand[indexOrder3[2]-1]
                     del self.hand[indexOrder3[1]-1]
                     del self.hand[indexOrder3[0]-1]
+                    Player.lastPlayType = "Tu"
                     
 #Full House
         elif idx5 != None and idx6 == None:
@@ -253,49 +328,133 @@ class Player:
             indexOrder4 = QUICKsort([idx1, idx2, idx3, idx4, idx5])
             
             if temp4[0].getRank() == temp4[1].getRank() == temp4[2].getRank() and temp4[3].getRank() == temp4[4].getRank():
-                if temp4[1].getRank() != temp4[2].getRank() or temp4[2].getRank() != temp4[3].getRank():
+                if temp4[2].getRank() != temp4[3].getRank() and Player.lastPlayMagnitude < indexOrder4[2] and Player.lastPlayType == "FH" or Player.lastPlayType == "":
                     for i in temp4:
                         i.reveal()
+                    Player.lastPlayMagnitude = indexOrder4[2]
                     del self.hand[indexOrder4[4]-1]
                     del self.hand[indexOrder4[3]-1]
                     del self.hand[indexOrder4[2]-1]
                     del self.hand[indexOrder4[1]-1]
                     del self.hand[indexOrder4[0]-1]
+                    Player.lastPlayType = "FH"
+                    
             if temp4[0].getRank() == temp4[1].getRank() and temp4[2].getRank() == temp4[3].getRank() == temp4[4].getRank():
-                if temp4[1].getRank() != temp4[2].getRank() or temp4[2].getRank() != temp4[3].getRank():
+                if temp4[1].getRank() != temp4[2].getRank() and Player.lastPlayMagnitude < indexOrder4[2] and Player.lastPlayType == "FH" or Player.lastPlayType == "":
                     for i in temp4:
                         i.reveal()
+                    Player.lastPlayMagnitude = indexOrder4[2]
                     del self.hand[indexOrder4[4]-1]
                     del self.hand[indexOrder4[3]-1]
                     del self.hand[indexOrder4[2]-1]
                     del self.hand[indexOrder4[1]-1]
                     del self.hand[indexOrder4[0]-1]
+                    Player.lastPlayType = "FH"
                         
 #Straight Flush
-            if temp4[4].getSuit() != None and int(temp4[4].getRankButBetter()) - int(temp4[3].getRankButBetter()) == 1 and int(temp4[3].getRankButBetter()) - int(temp4[2].getRankButBetter()) == 1 and int(temp4[2].getRankButBetter()) - int(temp4[1].getRankButBetter()) == 1 and int(temp4[1].getRankButBetter()) - int(temp4[0].getRankButBetter()) == 1:
-                if temp4[4].getSuit() == temp4[3].getSuit() and temp4[3].getSuit() == temp4[2].getSuit() and temp4[2].getSuit() == temp4[1].getSuit() and temp4[1].getSuit() == temp4[0].getSuit():
-                    for i in temp4:
-                        i.reveal()
-                    del self.hand[indexOrder4[4]-1]
-                    del self.hand[indexOrder4[3]-1]
-                    del self.hand[indexOrder4[2]-1]
-                    del self.hand[indexOrder4[1]-1]
-                    del self.hand[indexOrder4[0]-1]
+            if temp4[4].getSuit() != None and int(temp4[4].getRankButInteger()) - int(temp4[3].getRankButInteger()) == int(temp4[3].getRankButInteger()) - int(temp4[2].getRankButInteger()) == int(temp4[2].getRankButInteger()) - int(temp4[1].getRankButInteger()) == int(temp4[1].getRankButInteger()) - int(temp4[0].getRankButInteger()) == 1:
+                if temp4[4].getSuit() == temp4[3].getSuit() == temp4[2].getSuit() == temp4[1].getSuit() == temp4[0].getSuit():
+                    if Player.lastPlayType == "" or Player.lastPlayType == "Si" or Player.lastPlayType == "Pa" or Player.lastPlayType == "Tr" or Player.lastPlayType == "Pl" or Player.lastPlayType == "Tu" or Player.lastPlayType == "FH" or Player.lastPlayType == "St" or Player.lastPlayType == "4B" or Player.lastPlayType == "5B" or (Player.lastPlayType == "SF" and Player.lastPlayMagnitude < indexOrder4[4]):
+                        for i in temp4:
+                            i.reveal()
+                        Player.lastPlayMagnitude = indexOrder4[4]
+                        del self.hand[indexOrder4[4]-1]
+                        del self.hand[indexOrder4[3]-1]
+                        del self.hand[indexOrder4[2]-1]
+                        del self.hand[indexOrder4[1]-1]
+                        del self.hand[indexOrder4[0]-1]
+                        Player.lastPlayType = "SF"
             
 #Straight
-                else:
+                elif Player.lastPlayMagnitude < indexOrder4[4] and Player.lastPlayType == "St" or Player.lastPlayType == "":
                     for i in temp4:
                         i.reveal()
+                    Player.lastPlayMagnitude = indexOrder4[4]
                     del self.hand[indexOrder4[4]-1]
                     del self.hand[indexOrder4[3]-1]
                     del self.hand[indexOrder4[2]-1]
                     del self.hand[indexOrder4[1]-1]
                     del self.hand[indexOrder4[0]-1]
+                    Player.lastPlayType = "St"
 
-#Bomb
+#Bomb + Joker Bomb
+        elif idx4 != None:
+            temp5 = [idx1, idx2, idx3, idx4, idx5, idx6, idx7, idx8]
+            for a in range(8):
+                if temp5[7-a] == None:
+                    del temp5[7-a]
+            numberOfElements = len(temp5)
+            temp5 = QUICKsort(temp5)
+            
+            if idx5 == None:
+                if self.hand[idx1-1].getRank() == self.hand[idx2-1].getRank() == self.hand[idx3-1].getRank() == self.hand[idx4-1].getRank():
+                    if Player.lastPlayType == "" or Player.lastPlayType == "Si" or Player.lastPlayType == "Pa" or Player.lastPlayType == "Tr" or Player.lastPlayType == "Pl" or Player.lastPlayType == "Tu" or Player.lastPlayType == "FH" or Player.lastPlayType == "St" or (Player.lastPlayType == "4B" and Player.lastPlayMagnitude < temp5[3]):
+                        for i in temp5:
+                            self.hand[i-1].reveal()
+                        Player.lastPlayMagnitude = temp5[3]
+                        for j in range(numberOfElements):
+                            del self.hand[temp5[numberOfElements - j - 1] - 1]
+                        Player.lastPlayType = "4B"
+                elif self.hand[idx1-1].getSuit() == self.hand[idx2-1].getSuit() == self.hand[idx3-1].getSuit() == self.hand[idx4-1].getSuit() == None:
+                    for i in temp5: #there is no need to check for validity of this play if 4 jokers are present since this beats any other possible move
+                        self.hand[i-1].reveal()
+                    Player.lastPlayMagnitude = temp5[3]
+                    for j in range(numberOfElements):
+                        del self.hand[temp5[numberOfElements - j - 1] - 1]
+                    Player.lastPlayType = "JB"
+
+            elif idx5 != None and idx6 == None:
+                if self.hand[idx1-1].getRank() == self.hand[idx2-1].getRank() == self.hand[idx3-1].getRank() == self.hand[idx4-1].getRank() == self.hand[idx5-1].getRank():
+                    if Player.lastPlayType == "" or Player.lastPlayType == "Si" or Player.lastPlayType == "Pa" or Player.lastPlayType == "Tr" or Player.lastPlayType == "Pl" or Player.lastPlayType == "Tu" or Player.lastPlayType == "FH" or Player.lastPlayType == "St" or Player.lastPlayType == "4B" or (Player.lastPlayType == "5B" and Player.lastPlayMagnitude < temp5[3]):
+                        for i in temp5:
+                            self.hand[i-1].reveal()
+                        Player.lastPlayMagnitude = temp5[3]
+                        for j in range(numberOfElements):
+                            del self.hand[temp5[numberOfElements - j]-1]
+                        Player.lastPlayType = "5B"
+
+            elif idx6 != None and idx7 == None:
+                if self.hand[idx1-1].getRank() == self.hand[idx2-1].getRank() == self.hand[idx3-1].getRank() == self.hand[idx4-1].getRank() == self.hand[idx5-1].getRank() == self.hand[idx6-1].getRank():
+                    if Player.lastPlayType == "" or Player.lastPlayType == "Si" or Player.lastPlayType == "Pa" or Player.lastPlayType == "Tr" or Player.lastPlayType == "Pl" or Player.lastPlayType == "Tu" or Player.lastPlayType == "FH" or Player.lastPlayType == "St" or Player.lastPlayType == "4B" or Player.lastPlayType == "5B" or (Player.lastPlayType == "6B" and Player.lastPlayMagnitude < temp5[3]):
+                        for i in temp5:
+                            self.hand[i-1].reveal()
+                        Player.lastPlayMagnitude = temp5[3]
+                        for j in range(numberOfElements):
+                            del self.hand[temp5[numberOfElements - j]-1]
+                        Player.lastPlayType = "6B"
+
+            elif idx7 != None and idx8 == None:
+                if self.hand[idx1-1].getRank() == self.hand[idx2-1].getRank() == self.hand[idx3-1].getRank() == self.hand[idx4-1].getRank() == self.hand[idx5-1].getRank() == self.hand[idx6-1].getRank() == self.hand[idx7-1].getRank():
+                    if Player.lastPlayType == "" or Player.lastPlayType == "Si" or Player.lastPlayType == "Pa" or Player.lastPlayType == "Tr" or Player.lastPlayType == "Pl" or Player.lastPlayType == "Tu" or Player.lastPlayType == "FH" or Player.lastPlayType == "St" or Player.lastPlayType == "4B" or Player.lastPlayType == "5B" or Player.lastPlayType == "6B" or (Player.lastPlayType == "7B" and Player.lastPlayMagnitude < temp5[3]):
+                        for i in temp5:
+                            self.hand[i-1].reveal()
+                        Player.lastPlayMagnitude = temp5[3]
+                        for j in range(numberOfElements):
+                            del self.hand[temp5[numberOfElements - j]-1]
+                        Player.lastPlayType = "7B"
+                        
+            else:
+                if self.hand[idx1-1].getRank() == self.hand[idx2-1].getRank() == self.hand[idx3-1].getRank() == self.hand[idx4-1].getRank() == self.hand[idx5-1].getRank() == self.hand[idx6-1].getRank() == self.hand[idx7-1].getRank() == self.hand[idx8-1].getRank():
+                    if Player.lastPlayType == "" or Player.lastPlayType == "Si" or Player.lastPlayType == "Pa" or Player.lastPlayType == "Tr" or Player.lastPlayType == "Pl" or Player.lastPlayType == "Tu" or Player.lastPlayType == "FH" or Player.lastPlayType == "St" or Player.lastPlayType == "4B" or Player.lastPlayType == "5B" or Player.lastPlayType == "6B" or Player.lastPlayType == "7B" or (Player.lastPlayType == "8B" and Player.lastPlayMagnitude < temp5[3]):
+                        for i in temp5:
+                            self.hand[i-1].reveal()
+                        Player.lastPlayMagnitude = temp5[3]
+                        for j in range(numberOfElements):
+                            del self.hand[temp5[numberOfElements - j]-1]
+                        Player.lastPlayType = "8B"
+
 #Joker Bomb
+            
 
-                        #ADD A BOOL(T/F) TO PASS FUNCTIONS WHEN ONE TYPE OF MOVE HAS BEEN CONFIRMED
+
+########################to do list:
+                        #exception handling when an invalid play is made: allow player to make another play
+                            #note: exception handling for Player function playcard() can be done in the "ACTUALGAMECODE" section
+                                #focus on when input isnt int, and when input is out of range
+                        #ask players what move they would like to make, and use input() to trigger other functions accordingly
+
+                        #implement grouping
+                        #implement de-grouping
 
             
 
