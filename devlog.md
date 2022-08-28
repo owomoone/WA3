@@ -26,7 +26,7 @@
 > I am updating this (and the following section) on 28th August because I honestly forgot about doing the development log. I have also forgotten exactly what I achieved and planned for this week, but I believe I finished coding about three quarters of play validity recognition but did not do much else.
 
 ## Week 9 (23 Aug - 29 Aug)
-> In this week, I planned to finish recognition of valid moves and begin on further logic (in regards to previous play magnitude and type). This was achieved swiftly because all my examinations were over and I only had one or two weighted submissions left, so I also began on exception handling (both try-except and while loops) after completing my objectives. I will likely not be able to work on the code tomorrow (29th August) due to CCA until 6.45pm, but I will try to work on it at night (if time and energy allows).
+> In this week, I planned to finish recognition of valid moves and begin on further logic (in regards to previous play magnitude and type). This was achieved swiftly because all my examinations were over and I only had one or two weighted submissions left, so I also began on exception handling (both try-except and while loops) after completing my objectives. I will likely not be able to work on the code tomorrow (29th August) due to CCA until 6.45pm, but I will try to work on it at night (if time and energy allows). Referring to my original proposal, so far Goals 1, 2, 3 and 6 have been achieved, although I have already thought of simple ways to make Goals 4, 5, 7 and 8 work: it's just a matter of whether I procrastinate actual coding or not. :P
 
 ## Week 10 (30 Aug - 5 Sep)
 
