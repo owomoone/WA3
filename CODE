@@ -98,6 +98,8 @@ lastPlayMagnitude = 0 #this indicates how large the previous play was to determi
 RoundNumber = 1 #this indicates the current round
 #a round ends when all 4 players have made an input (input = playing card(s) or passing their turn)
 
+pendingPlay = []
+
 def RANKSsort(array):
     sortedlast = []
     temp = []
@@ -472,3 +474,6 @@ player01.addtohand(DEALPILE, 27)
 player02.addtohand(DEALPILE, 27)
 player03.addtohand(DEALPILE, 27)
 player04.addtohand(DEALPILE, 27)
+
+if RoundNumber == 1:
+    pendingPlay = input(pname01 +", please type in the indexes of the cards you wish to play, separated by only commas: \n").split(",")
