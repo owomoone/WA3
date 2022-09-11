@@ -1,67 +1,109 @@
-#Start
+#IMPORTATION
 
-print("Welcome to 掼蛋 Guandan!")
-commonBool = True
+import random
+import sys
+import os.path
 
-while commonBool == True:
-    rules = input("Would you like to go over the rules of the game? (Type Y/N): ")
-    if rules == "Y":
+#INITIALISATION
+
+print("Welcome to 掼蛋 Guandan!") #welcome :)
+commonBool = True #this boolean will be used throughout the code as a condition to continue or break certain while loops
+
+while commonBool == True: #while loop
+    rules = input("Would you like to go over the rules of the game? Type Y for yes and N for no: ") #asks for user input regarding whether they want to read the rules of the game or not
+    if rules == "Y": #if user wishes to read rules, the rules will be printed (wall of text below)
         print("\nThis is a 2v2 game, form your teams now if you have not done so yet. \nNote that players will be alternating turns based on their team.")
         print("This game uses 2 full poker decks for a total of 108 cards: each player will receive 27 cards.")
         print("\nDuring each person's turn, they are allowed to either play exactly one type of card, or pass their turn.")
-        print("During one set, players must play the same type of card as the player who initiated the set, but their cards must be of a larger numeric amount than the last player.")
-        print("A set ends when three consecutive players pass, the other player can then start another set with a type of their choice.")
+        print("During one round, players must play the same type of card as the player who initiated the set, but their cards must be of a larger numeric amount than the last player.")
+        print("A round ends when three consecutive players pass, the other player can then start another set with a type of their choice.")
         print("The aim of the game is to throw out all of the cards in their hand as fast as possible. The one to do so first in a match will win the match.")
         print("\nTypes of card plays include:")
         print("\t单张 Singles: One singular card")
         print("\t对子 Pairs: Two cards of the same rank")
         print("\t三同张 Triples: Three cards of the same rank")
-        print("\t钢板 Plates: Two consecutive triples, e.g. three 4s and three 5s")
-        print("\t三连对 Tubes: Three consecutive pairs, e.g. two 3s, two 4s and two 5s")
-        print("\t三带二 Full Houses: A triple and a pair. Note that the numeric amount of this type is determined by that of the triple.")
-        print("\t顺子 Straights: Five consecutive single cards, e.g. A,2,3,4,5")
+        print("\t钢板 Plates: Two consecutive triples, e.g. 4,4,4,5,5,5. A,A,A,2,2,2 and K,K,K,A,A,A and above are not accepted plays")
+        print("\t三连对 Tubes: Three consecutive pairs, e.g. 3,3,4,4,5,5. A,A,2,2,3,3 and Q,Q,K,K,A,A and above are not accepted plays.")
+        print("\t三带二 Full Houses: A triple and a pair. Note that the numeric amount of this type is determined by that of the triple. ")
+        print("\t顺子 Straights: Five consecutive single cards, e.g. 3,4,5,6,7. A,2,3,4,5 and 10,J,Q,K,A and above are not accepted plays.")
         print("\t炸弹 Bombs: Four or more cards of the same rank. This type of card can be used on any type of card mentioned above. Numeric amounts of this type is determined by the rank of the card, as well as the number of cards.")
-        print("\t同花顺 Straight Flushes: A straight with all cards being from the same suit. This type can beat all the types mentioned above, except bombs with 6 or more cards. This can be beated by another straight flush of greater numeric amount.")
+        print("\t同花顺 Straight Flushes: A straight with all cards being from the same suit. This type can beat all the types mentioned above, except bombs with 6 or more cards. This can be beaten by another straight flush of greater numeric amount.")
         print("\t天王炸 Joker Bombs: The strongest card combination in the whole game. Formed by all four jokers, it can beat any other type at any given time.")
         print("\nStarting from 2 for each team, the level will increase if a member from the team wins a match. If the second team member gets second, the level will increase by 3; if they get third it increases by 2; if they get last it increases by 1.")
         print("Level Cards are the 8 cards with ranks corresponding to the current level. They are stronger in numeric amount than all cards but weaker than the jokers. The starting Level Cards are thus those with rank 2.")
-        print("Wild Cards are the 2 Level Cards in each round that are of the suit Heart. They can be used as any card in the game except the jokers to form all types of plays except the joker bomb.")
         print("\nNumeric Amounts of cards in ascending (without level cards):")
         print("\t2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A, Black Joker, Red Joker")
         print("\nNote that the number of cards in a player's hand will immediately be revealed to all other players if it is 10 or below.")
         print("\nA team wins the game if they are at level A and win the match of the level given that the other member does not come in last.")
-        print("If the team at level A does not win the match thrice during their level's turn, they will immediately be returned to level 2.")
+        print("For more in-depth information about the game, you can head on to the Wikipedia page about this game.")
         print("============================================ \n")
-        commonBool = False
+        commonBool = False #breaks the while loop to move on
         
-    elif rules == "N":
-        print("The rules have been skipped, on to the game! \n")
-        commonBool = False
+    elif rules == "N": #if user doesn't wish to read rules, the rules will not be printed
+        print("The rules have been skipped, on to the game! \n") #confirmation message!
+        commonBool = False #breaks the while loop to move on
         
-    else:
-        print("Invalid input, please enter either Y or N (case-sensitive)! \n")
+    else: #the case where user input is invalid
+        print("Invalid input, please enter either Y or N (case-sensitive)! \n") #gives the user an indication of what has gone wrong and how to fix the issue, and continues the while loop
     
-commonBool = True
+commonBool = True #resetting commonBool's value to True for another while loop regarding saved progress
 
-while commonBool == True:
-    ready = input("Type S to start the game when all players are ready: ")
-    if ready == "S":
-        print("Great, now let's start the game!")
-        print("============================================ \n")
-        commonBool = False
-    else:
-        print("Please enter only 'S' (case-sensitive) when everyone is ready! \n")
+INITIALascOrder = ['2','3','4','5','6','7','8','9','10','J','Q','K','A','Black Joker','Red Joker'] #these three lines define variables that will be used throughout the entirety of the code and are also edited based on saved user progress
+MODIFIEDascOrder = ['3','4','5','6','7','8','9','10','J','Q','K','A','2','Black Joker','Red Joker'] #INITIALascOrder gives the order of magnitude of card ranks if none of the cards were level cards, and MODIFIEDascOrder is similar except it accounts for level cards
+teamInPlay = "Blue Team" #teamInPlay defines which team's level is current in play (i.e. which team won the previous played match)
+
+if os.path.exists("levelsSaveFile.txt") == True: #checks if the file tracking team levels exists (if it does, the file tracking which team is in play also does since they are initialised in the same block of code)
+    while commonBool == True: #case where the file does indeed exist
+        defaultprogress = input("You may have saved level progress, type Y to continue with saved progress and N to restart with default levels: ") #asks for user input on whether they would like to continue with saved data
+        if defaultprogress == "Y": #if they wish to continue with saved data
+            xx = 0
+            yy = 0  #placeholders for team levels
+            print("Loading Saved Progress...") #confirmation message!
+            with open("levelsSaveFile.txt", "r") as LEVELSINFO: #file i/o to extract data from file tracking team levels
+                xx = LEVELSINFO.read()[:2] #takes the value of Blue Team's level
+                yy = LEVELSINFO.read()[-2:] #takes the value of Red Team's level
+            with open("teamSaveFile.txt", "r") as TEAMINFO: #file i/o to extract data from file tracking which team is in play
+                teamInPlay = TEAMINFO.read() #takes the name of the team in play
+
+            if teamInPlay == "Blue Team":
+                MODIFIEDascOrder.remove(str(int(xx))) #this line and the line below modify MODIFIEDascOrder to account for the saved team level
+                MODIFIEDascOrder.insert(-2, str(int(xx)))
+            if teamInPlay == "Red Team":
+                MODIFIEDascOrder.remove(str(int(yy))) #this line and the line below modify MODIFIEDascOrder to account for the saved team level
+                MODIFIEDascOrder.insert(-2, str(int(yy)))
+                
+            print("Done!") #another confirmation message!
+            
+            commonBool = False #breaks the while loop to move on
+            
+        elif defaultprogress == "N": #case where the user wishes to reset data
+            with open("levelsSaveFile.txt", "w") as LEVELSINFO: #file i/o to edit file to default
+                LEVELSINFO.write("02 02") #2 is the default level for each team, and it is written as 02 to account for string indexing later on when levels become two digit numbers
+            commonBool = False #breaks the while loop to move on
+        else: #the case where user input is invalid
+            print("Please enter only 'Y' (use saved progress) or 'N' (restart to default), case-sensitive.") #asks the user to try again
+
+commonBool = True #resetting for another loop
+
+while commonBool == True: #start of loop
+    ready = input("Type S to start the game when all players are ready: ") #this section checks for whether the players are ready to play, though i am not sure why i thought this section was necessary
+    if ready == "S": #they are ready
+        print("Great, now let's start the game!") #confirmation message!
+        print("============================================ \n") #for less jarring display
+        commonBool = False #breaks the while loop to move on
+    else: #invalid input
+        print("Please enter only 'S' (case-sensitive) when everyone is ready! \n") #asks user to retry
 
 
-while True:
-    try:
-        pname01 = str(input("Player 1 (Blue Team) please input your name: "))
-        if pname01 != "":
-            break
-        print("Your name cannot be blank. \n")
-    except Exception:
-        print("Please enter a valid name (no unicodes). \n")
-while True:
+while True: #while loop
+    try: #in case of invalid username
+        pname01 = str(input("Player 1 (Blue Team) please input your name: ")) #asks for input
+        if pname01 != "": #if username is not blank
+            break #breaks out of loop
+        print("Your name cannot be blank. \n") #if username is blank
+    except Exception: #if the str function 4 lines ago somehow returns an error due to unicodes or other unique letters
+        print("Please enter a valid name (no unicodes). \n") #asks user to retry
+while True: #this while loop and the two following ones are inherently the same as the previous one, they just get the names of each player, hence i will not comment on these parts
     try:
         pname02 = str(input("Player 2 (Red Team) please input your name: "))
         if pname02 != "":
@@ -86,30 +128,36 @@ while True:
     except Exception:
         print("Please enter a valid name (no unicodes). \n")
 
-#MISC
+#MISCELLANEOUS
+
+if os.path.exists("levelsSaveFile.txt") == False: #if the file tracking team levels exists (i.e. it is not the first time this code has been used or the code has been defaulted
+    with open("levelsSaveFile.txt", "w") as LEVELSINFO: #defaulting the file
+        LEVELSINFO.write("02 02") #first "02" represents Blue Team's level, second one represents Red Team's
+    with open("teamSaveFile.txt", "w") as TEAMINFO: #defaulting the file
+        TEAMINFO.write("Blue Team") #this represents the team whose level is currently in play
 
 lastPlayType = "" #this indicates what the previous play was to determine if a move is illegal or valid
 #for ease of notation, the first letters of each word in the types of moves will be used (e.g. Straight Flush is represented as "SF")
 #if two types of moves share the same initials, they will be differentiated by adding the second letter (e.g. Pairs = "Pa", Plates = "Pl")
 #in the case of non-Joker Bombs, a number is appended before its symbol "B" to represent how many cards are in the Bomb
 
-lastPlayMagnitude = 0 #this indicates how large the previous play was to determine if a move is illegal or valid (tgt with lastPlayType)
+lastPlayMagnitude = 0 #this indicates how large the previous play was to determine if a move is illegal or valid (together with lastPlayType)
 
 RoundNumber = 1 #this indicates the current round
-#a round ends when all 4 players have made an input (input = playing card(s) or passing their turn)
+#a round ends when three players pass consecutively or when a player plays all their cards
+currentPlayer = 0 #this is an index that indicates who is currently to make a move based on the order they input their names
+pendingPlay = [] #an array to store the index values for the current play being executed
 
-pendingPlay = []
+gameFinished = False #current game status indicator
+fullgameDone = False #current full game status indicator
 
-def RANKSsort(array):
+def RANKSsort(array): #sorts a certain array of cards by their rank by comparison with MODIFIEDascOrder
     sortedlast = []
     temp = []
 
-    ascOrder = ['2','3','4','5','6','7','8','9','10','J','Q','K','A','Black Joker','Red Joker']
-
-
-    for i in range(len(ascOrder)):
+    for i in range(len(MODIFIEDascOrder)):
         for j in range(len(array)):
-            if array[j].getRank() == ascOrder[i]:
+            if array[j].getRank() == MODIFIEDascOrder[i]:
                 temp.append(array[j])
         sortedlast = sortedlast + SUITSsort(temp)
         temp = []
@@ -123,7 +171,7 @@ def RANKSsort(array):
     
     return(sortedlast)
 
-def SUITSsort(aRay):
+def SUITSsort(aRay): #sorts a certain array of cards by their suit (in the order Spades, Clubs, Hearts, Diamonds)
     temp2 = []
     for i in range(len(aRay)):
         if aRay[i].getSuit() == '♠':
@@ -140,14 +188,14 @@ def SUITSsort(aRay):
 
     return(temp2)
 
-def QUICKsort(array): # recursive
+def QUICKsort(array): #recursive quick sort mostly used to arrange user-inputted indexes by ascending integer value
     if len(array) < 2:
         return array
     pivot = array[0] # select pivot to be front
     left_part = [] # left_part is everything smaller than pivot value
     right_part = [] # right_part is everything larger than pivot value
     for i in range(1, len(array)):
-        if array[i] <= pivot: # to sort in DESCENDING ORDER, change < to >
+        if array[i] <= pivot: 
             left_part.append(array[i])
         else:
             right_part.append(array[i])
@@ -155,65 +203,70 @@ def QUICKsort(array): # recursive
     sorted_right = QUICKsort(right_part)
     return sorted_left + [pivot] + sorted_right
 
+
+
 #CLASSES
 
-import random
-
-class Card:
+class Card: #this defines the class for a singular card
     def __init__(self, erank, esuit = None):
-        self.rank = erank
-        self.suit = esuit
+        self.rank = erank #rank of the card
+        self.suit = esuit #suit of the card
         
-    def getRank(self):
+    def getRank(self): #gets the value of the card's rank
         return self.rank
 
-    def getRankButInteger(self):
-        if self.rank == "J":
+    def getRankButInteger(self): #gets an integer expression for the card's rank, for magnitude comparison later on
+        if self.rank == "J" and MODIFIEDascOrder[-3] != "J":
             return 11
-        elif self.rank == "Q":
+        elif self.rank == "Q" and MODIFIEDascOrder[-3] != "Q":
             return 12
-        elif self.rank == "K":
+        elif self.rank == "K" and MODIFIEDascOrder[-3] != "K":
             return 13
-        elif self.rank == "A":
+        elif self.rank == "A" and MODIFIEDascOrder[-3] != "A":
             return 14
         elif self.rank == "Black Joker":
             return 1000
         elif self.rank == "Red Joker":
             return 2000
+        elif self.rank == MODIFIEDascOrder[-3]:
+            return 500 #under this system, 2 to A will be arranged by their order of magnitude from 2 to 14, and the level card which is one of them will instead have a value of 500 to trump all other normally indexed cards, and Black and Red Joker have values of 1000 and 2000 for correct magnitude
         else:
             return int(self.rank)
     
-    def getSuit(self):
+    def getSuit(self): #gets the value of the card's suit
         return self.suit
     
-    def reveal(self):
-        if self.suit != None:
+    def reveal(self): #directly prints the value of the card based on a certain format
+        if self.suit != None: #this excludes the case where the card is a Joker, since Jokers are defined to not have suits
             print("{} of {}".format(self.rank,self.suit))
-        else:
+        else: #this only includes the case where the card is a Joker, in which only the rank has to be printed
             print(self.rank)
 
-class Deck: 
+
+
+class Deck: #this defines the class for a deck of cards
     ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
-    suits = ['♠', '♡', '♢', '♣', '♠', '♡', '♢', '♣']
+    suits = ['♠', '♡', '♢', '♣', '♠', '♡', '♢', '♣'] #these two arrays are to append cards to a full deck of 108 cards
         
-    def __init__(self): 
+    def __init__(self): #initialises a full hand of 108 cards
         self.deck = [Card("Black Joker"), Card("Black Joker"), Card("Red Joker"), Card("Red Joker")]
         for i in Deck.ranks: 
             for j in Deck.suits:
                 self.deck.append(Card(i, j))
                          
-    def shuffle(self): 
+    def shuffle(self): #shuffles the deck
         random.shuffle(self.deck)
 
-    def reveal(self):
+    def reveal(self): #reveals each card in the deck
         for i in self.deck:
             i.reveal()
         
-    def dealCard(self):
+    def dealCard(self): #gives the value of the top card in the deck and removes it from the array
         return self.deck.pop()
 
 
-class Player:
+
+class Player: #this defines the class for a player's hand
 
     lastPlayType = "" #this indicates what the previous play was to determine if a move is illegal or valid
     #for ease of notation, the first letters of each word in the types of moves will be used (e.g. Straight Flush is represented as "SF")
@@ -221,22 +274,39 @@ class Player:
     #in the case of non-Joker Bombs, a number is appended before its symbol "B" to represent how many cards are in the Bomb
 
     lastPlayMagnitude = 0 #this indicates how large the previous play was to determine if a move is illegal or valid (tgt with lastPlayType)
-    
-    def __init__(self, ename):
-        self.hand = []
-        self.name = ename
 
-    def givename(self):
+    playIsValid = False #this indicates whether the current play being made is valid. after checking all possible types of moves if this is still False, the play is invalid
+
+    prevplay1 = "--" #these three variables define the 3 previous plays made by other players
+    prevplay2 = "--"
+    prevplay3 = "--"
+    prevplayarray = [] #array of cards to be played (used primarily in playcard function defined later on)
+    
+    def __init__(self, ename): #initialising a player
+        self.hand = [] #hand of cards
+        self.name = ename #name
+        self.team = Team #Blue or Red team
+        self.ingame = True #whether the player is still participating in the current game or not (i.e. if the player has played all their cards)
+
+    def givename(self): #gives name
         return self.name
 
-    def addtohand(self, deckname, amt):
+    def togglestatus(self): #changes the value of self.ingame
+        if self.ingame == True:
+            self.ingame = False
+        else:
+            self.ingame = True
+
+    def addtohand(self, deckname, amt): #adds a certain number of cards from a specified deck to self.hand
         deckname.shuffle()
         for i in range(amt):
             self.hand.append(deckname.dealCard())
-        self.hand = RANKSsort(self.hand)
-        
+        self.hand = RANKSsort(self.hand) #this sorts the cards according to their rank for easier display and understanding by the player
 
-    def showhand(self):
+    def clearhand(self): #clears self.hand
+        self.hand = []
+
+    def showhand(self): #prints the value of each card in self.hand in separate rows, formatted
         c = 1
         for i in self.hand:
             if i.suit != None and c < 10:
@@ -247,223 +317,513 @@ class Player:
                 c += 1
             elif i.suit == None and c < 10:
                 print("Index " + str(c) + "  | " + i.rank)
+                c += 1
             else: 
                 print("Index " + str(c) + " | " + i.rank)
                 c += 1
         c = 1
 
-    def playcard(self, idx1, idx2 = None, idx3 = None, idx4 = None, idx5 = None, idx6 = None, idx7 = None, idx8 = None):
-        #assuming no grouping yet, all cards are single
+    def giveteam(self): #gives team
+        return self.team
+
+    def playcard(self, moveIndexList): #checks for validity of the play, designates magnitude and type of the play, removes the cards from the players hand and adds the play to prevplay1 for the next player to see and beat
+
+        for i in moveIndexList: 
+            if int(i) <= 0: #if any of the indexes are non-positive, this is out of range of the hand
+                self.hand.pop(10000).reveal() #returns IndexError to bring up the exception and ask the player for another valid input
+
+#THE FOLLOWING CODE IN THIS DEFINITION WILL CHECK FOR PLAY TYPE AND MAGNITUDE, THEN VALIDITY, THEN DESIGNATE THEM TO Player.lastPlayMagnitude AND Player.lastPlayType IF VALID, THEN UPDATE ALL THREE MOST RECENT PLAYS
 
 #Singles
-        if idx2 == None and Player.lastPlayMagnitude < self.hand[idx1 - 1].getRankButInteger() and Player.lastPlayType == "Si" or Player.lastPlayType == "":
-            Player.lastPlayMagnitude = self.hand[idx1 - 1].getRankButInteger()
-            self.hand.pop(idx1 - 1).reveal()
+        if Player.playIsValid == False and len(moveIndexList) == 1 and Player.lastPlayMagnitude < self.hand[moveIndexList[0] - 1].getRankButInteger() and (Player.lastPlayType == "Si" or Player.lastPlayType == ""):      
+            #editing the most recent play's magnitude
+            Player.lastPlayMagnitude = self.hand[moveIndexList[0] - 1].getRankButInteger()
+
+            #rotating previous plays
+            Player.prevplay3 = Player.prevplay2 
+            Player.prevplay2 = Player.prevplay1
+            Player.prevplay1 = self.hand.pop(moveIndexList[0] - 1) #placeholds a Card() type
+
+            Player.prevplay1.reveal() #actually displays the card being played
+
+            #formatting the most recent play for display
+            if Player.prevplay1.suit != None:
+                Player.prevplay1 = ("{} of {}".format(Player.prevplay1.rank,Player.prevplay1.suit))
+            else:
+                Player.prevplay1 = Player.prevplay1.rank
+            Player.prevplay1 = self.name + " | " + Player.prevplay1
+
+            #editing the most recent play's type and toggling validity boolean
             Player.lastPlayType = "Si"
+            Player.playIsValid = True
             
 #Pairs
-        elif idx2 != None and idx3 == None and Player.lastPlayMagnitude < self.hand[idx1 - 1].getRankButInteger() and Player.lastPlayType == "Pa" or Player.lastPlayType == "":
-            indexOrder1 = QUICKsort([idx1, idx2])
-            if self.hand[idx1 - 1].getRank() == self.hand[idx2 - 1].getRank():
-                Player.lastPlayMagnitude = self.hand[idx1 - 1].getRankButInteger()
-                self.hand.pop(indexOrder1[1] - 1).reveal()
-                self.hand.pop(indexOrder1[0] - 1).reveal()
+        elif Player.playIsValid == False and len(moveIndexList) == 2 and Player.lastPlayMagnitude < self.hand[moveIndexList[0] - 1].getRankButInteger() and (Player.lastPlayType == "Pa" or Player.lastPlayType == ""):
+            indexOrder1 = QUICKsort([moveIndexList[0], moveIndexList[1]])
+            if self.hand[moveIndexList[0] - 1].getRank() == self.hand[moveIndexList[1] - 1].getRank():
+                Player.lastPlayMagnitude = self.hand[moveIndexList[0] - 1].getRankButInteger()
+
+                #rotating previous plays
+                Player.prevplay3 = Player.prevplay2 
+                Player.prevplay2 = Player.prevplay1
+                Player.prevplayarray = []
+                Player.prevplay1 = ""
+                
+                for i in range(len(indexOrder1)):
+                    Player.prevplayarray.append(self.hand.pop(indexOrder1[len(indexOrder1) - i - 1] - 1))
+
+                #formatting the most recent play for display
+                for i in Player.prevplayarray:
+                    if i.suit != None:
+                        Player.prevplay1 = Player.prevplay1 + ("{} of {}".format(i.rank,i.suit)) + ", "
+                    else:
+                        Player.prevplay1 = Player.prevplay1 + i.rank + ", "
+                    i.reveal() #displays the card being played
+
+                Player.prevplay1 = Player.prevplay1[:-2]
+                Player.prevplay1 = self.name + " | " + Player.prevplay1 
+                
                 Player.lastPlayType = "Pa"
+                Player.playIsValid = True
 #Triples
-        elif idx3 != None and idx4 == None and Player.lastPlayMagnitude < self.hand[idx1 - 1].getRankButInteger() and Player.lastPlayType == "Tr" or Player.lastPlayType == "":
-            indexOrder2 = QUICKsort([idx1, idx2, idx3])
-            if self.hand[idx1 - 1].getRank() == self.hand[idx2 - 1].getRank() == self.hand[idx3 - 1].getRank():
-                Player.lastPlayMagnitude = self.hand[idx1 - 1].getRankButInteger()
-                self.hand.pop(indexOrder1[2] - 1).reveal()
-                self.hand.pop(indexOrder1[1] - 1).reveal()
-                self.hand.pop(indexOrder1[0] - 1).reveal()
+        elif Player.playIsValid == False and len(moveIndexList) == 3 and Player.lastPlayMagnitude < self.hand[moveIndexList[0] - 1].getRankButInteger() and (Player.lastPlayType == "Tr" or Player.lastPlayType == ""):
+            indexOrder2 = QUICKsort([moveIndexList[0], moveIndexList[1], moveIndexList[2]])
+            if self.hand[moveIndexList[0] - 1].getRank() == self.hand[moveIndexList[1] - 1].getRank() == self.hand[moveIndexList[2] - 1].getRank():
+                Player.lastPlayMagnitude = self.hand[moveIndexList[0] - 1].getRankButInteger()
+
+                #rotating previous plays
+                Player.prevplay3 = Player.prevplay2 
+                Player.prevplay2 = Player.prevplay1
+                Player.prevplayarray = []
+                Player.prevplay1 = ""
+                
+                for i in range(len(indexOrder2)):
+                    Player.prevplayarray.append(self.hand.pop(indexOrder2[len(indexOrder2) - i - 1] - 1))
+
+                #formatting the most recent play for display
+                for i in Player.prevplayarray:
+                    if i.suit != None:
+                        Player.prevplay1 = Player.prevplay1 + ("{} of {}".format(i.rank,i.suit)) + ", "
+                    else:
+                        Player.prevplay1 = Player.prevplay1 + i.rank + ", "
+                    i.reveal() #displays the card being played
+
+                Player.prevplay1 = Player.prevplay1[:-2]
+                Player.prevplay1 = self.name + " | " + Player.prevplay1
+                
                 Player.lastPlayType = "Tr"
+                Player.playIsValid = True
 #Plates
-        elif idx6 != None and idx7 == None:
+        elif Player.playIsValid == False and len(moveIndexList) == 6 and (self.hand[moveIndexList[0] - 1].getRank() == self.hand[moveIndexList[1] - 1].getRank() == self.hand[moveIndexList[2] - 1].getRank() == self.hand[moveIndexList[3] - 1].getRank() == self.hand[moveIndexList[4] - 1].getRank() == self.hand[moveIndexList[5] - 1].getRank()) != True:
             temp3 = []
-            temp3.append(self.hand[idx1 - 1])
-            temp3.append(self.hand[idx2 - 1])
-            temp3.append(self.hand[idx3 - 1])
-            temp3.append(self.hand[idx4 - 1])
-            temp3.append(self.hand[idx5 - 1])
-            temp3.append(self.hand[idx6 - 1])
+            temp3.append(self.hand[moveIndexList[0] - 1])
+            temp3.append(self.hand[moveIndexList[1] - 1])
+            temp3.append(self.hand[moveIndexList[2] - 1])
+            temp3.append(self.hand[moveIndexList[3] - 1])
+            temp3.append(self.hand[moveIndexList[4] - 1])
+            temp3.append(self.hand[moveIndexList[5] - 1])
             temp3 = RANKSsort(temp3)
-            indexOrder3 = QUICKsort([idx1, idx2, idx3, idx4, idx5, idx6])
+            indexOrder3 = QUICKsort([moveIndexList[0], moveIndexList[1], moveIndexList[2], moveIndexList[3], moveIndexList[4], moveIndexList[5]])
             
             if temp3[5].getSuit() != None:
-                if temp3[0].getRank() == temp3[1].getRank() == temp3[2].getRank() and temp3[3].getRank() == temp3[4].getRank() == temp3[5].getRank() and temp3[3].getRankButInteger() - temp3[2].getRankButInteger() == 1 and Player.lastPlayMagnitude < indexOrder3[5] and Player.lastPlayType == "Pl" or Player.lastPlayType == "":
-                    for i in temp3:
-                        i.reveal()
-                    Player.lastPlayMagnitude = indexOrder3[5]
-                    del self.hand[indexOrder3[5]-1]
-                    del self.hand[indexOrder3[4]-1]
-                    del self.hand[indexOrder3[3]-1]
-                    del self.hand[indexOrder3[2]-1]
-                    del self.hand[indexOrder3[1]-1]
-                    del self.hand[indexOrder3[0]-1]
+                if temp3[0].getRank() == temp3[1].getRank() == temp3[2].getRank() and temp3[3].getRank() == temp3[4].getRank() == temp3[5].getRank() and temp3[3].getRankButInteger() - temp3[2].getRankButInteger() == 1 and Player.lastPlayMagnitude < temp3[5].getRankButInteger() and (Player.lastPlayType == "Pl" or Player.lastPlayType == ""):
+
+                    Player.lastPlayMagnitude = temp3[5].getRankButInteger()
+                    
+                    #rotating previous plays
+                    Player.prevplay3 = Player.prevplay2 
+                    Player.prevplay2 = Player.prevplay1
+                    Player.prevplayarray = []
+                    Player.prevplay1 = ""
+                    
+                    for i in range(len(indexOrder3)):
+                        Player.prevplayarray.append(self.hand.pop(indexOrder3[len(indexOrder3) - i - 1] - 1))
+                    Player.prevplayarray.reverse()
+
+                    #formatting the most recent play for display
+                    for i in Player.prevplayarray:
+                        if i.suit != None:
+                            Player.prevplay1 = Player.prevplay1 + ("{} of {}".format(i.rank,i.suit)) + ", "
+                        else:
+                            Player.prevplay1 = Player.prevplay1 + i.rank + ", "
+                        i.reveal() #displays the card being played
+
+                    Player.prevplay1 = Player.prevplay1[:-2]
+                    Player.prevplay1 = self.name + " | " + Player.prevplay1
+                    
                     Player.lastPlayType = "Pl"
+                    Player.playIsValid = True
 
                     
 #Tubes
             if temp3[5].getSuit() != None:
-                if temp3[0].getRank() == temp3[1].getRank() and temp3[2].getRank() == temp3[3].getRank() and temp3[4].getRank() == temp3[5].getRank() and temp3[4].getRankButInteger() - temp3[3].getRankButInteger() == temp3[2].getRankButInteger() - temp3[1].getRankButInteger() == 1 and Player.lastPlayMagnitude < indexOrder3[5] and Player.lastPlayType == "Tu" or Player.lastPlayType == "":
-                    for i in temp3:
-                        i.reveal()
-                    Player.lastPlayMagnitude = indexOrder3[5]
-                    del self.hand[indexOrder3[5]-1]
-                    del self.hand[indexOrder3[4]-1]
-                    del self.hand[indexOrder3[3]-1]
-                    del self.hand[indexOrder3[2]-1]
-                    del self.hand[indexOrder3[1]-1]
-                    del self.hand[indexOrder3[0]-1]
+                if temp3[0].getRank() == temp3[1].getRank() and temp3[2].getRank() == temp3[3].getRank() and temp3[4].getRank() == temp3[5].getRank() and temp3[4].getRankButInteger() - temp3[3].getRankButInteger() == temp3[2].getRankButInteger() - temp3[1].getRankButInteger() == 1 and Player.lastPlayMagnitude < temp3[5].getRankButInteger() and (Player.lastPlayType == "Tu" or Player.lastPlayType == ""):
+
+                    Player.lastPlayMagnitude = temp3[5].getRankButInteger()
+
+                    #rotating previous plays
+                    Player.prevplay3 = Player.prevplay2 
+                    Player.prevplay2 = Player.prevplay1
+                    Player.prevplayarray = []
+                    Player.prevplay1 = ""
+                    
+                    for i in range(len(indexOrder3)):
+                        Player.prevplayarray.append(self.hand.pop(indexOrder3[len(indexOrder3) - i - 1] - 1))
+                    Player.prevplayarray.reverse()
+
+                    #formatting the most recent play for display
+                    for i in Player.prevplayarray:
+                        if i.suit != None:
+                            Player.prevplay1 = Player.prevplay1 + ("{} of {}".format(i.rank,i.suit)) + ", "
+                        else:
+                            Player.prevplay1 = Player.prevplay1 + i.rank + ", "
+                        i.reveal() #displays the card being played
+
+                    Player.prevplay1 = Player.prevplay1[:-2]
+                    Player.prevplay1 = self.name + " | " + Player.prevplay1
+                    
                     Player.lastPlayType = "Tu"
+                    Player.playIsValid = True
                     
 #Full House
-        elif idx5 != None and idx6 == None:
+        elif Player.playIsValid == False and len(moveIndexList) == 5 and (self.hand[moveIndexList[0] - 1].getRank() == self.hand[moveIndexList[1] - 1].getRank() == self.hand[moveIndexList[2] - 1].getRank() == self.hand[moveIndexList[3] - 1].getRank() == self.hand[moveIndexList[4] - 1].getRank()) != True:
             temp4 = []
-            temp4.append(self.hand[idx1 - 1])
-            temp4.append(self.hand[idx2 - 1])
-            temp4.append(self.hand[idx3 - 1])
-            temp4.append(self.hand[idx4 - 1])
-            temp4.append(self.hand[idx5 - 1])
+            temp4.append(self.hand[moveIndexList[0] - 1])
+            temp4.append(self.hand[moveIndexList[1] - 1])
+            temp4.append(self.hand[moveIndexList[2] - 1])
+            temp4.append(self.hand[moveIndexList[3] - 1])
+            temp4.append(self.hand[moveIndexList[4] - 1])
             temp4 = RANKSsort(temp4)
-            indexOrder4 = QUICKsort([idx1, idx2, idx3, idx4, idx5])
+            indexOrder4 = QUICKsort([moveIndexList[0], moveIndexList[1], moveIndexList[2], moveIndexList[3], moveIndexList[4]])
             
             if temp4[0].getRank() == temp4[1].getRank() == temp4[2].getRank() and temp4[3].getRank() == temp4[4].getRank():
-                if temp4[2].getRank() != temp4[3].getRank() and Player.lastPlayMagnitude < indexOrder4[2] and Player.lastPlayType == "FH" or Player.lastPlayType == "":
-                    for i in temp4:
-                        i.reveal()
-                    Player.lastPlayMagnitude = indexOrder4[2]
-                    del self.hand[indexOrder4[4]-1]
-                    del self.hand[indexOrder4[3]-1]
-                    del self.hand[indexOrder4[2]-1]
-                    del self.hand[indexOrder4[1]-1]
-                    del self.hand[indexOrder4[0]-1]
+                if temp4[2].getRank() != temp4[3].getRank() and Player.lastPlayMagnitude < temp4[2].getRankButInteger() and (Player.lastPlayType == "FH" or Player.lastPlayType == ""):
+                    
+                    Player.lastPlayMagnitude = temp4[2].getRankButInteger()
+
+                    #rotating previous plays
+                    Player.prevplay3 = Player.prevplay2 
+                    Player.prevplay2 = Player.prevplay1
+                    Player.prevplayarray = []
+                    Player.prevplay1 = ""
+                    
+                    for i in range(len(indexOrder4)):
+                        Player.prevplayarray.append(self.hand.pop(indexOrder4[len(indexOrder4) - i - 1] - 1))
+                    Player.prevplayarray.reverse()
+
+                    #formatting the most recent play for display
+                    for i in Player.prevplayarray:
+                        if i.suit != None:
+                            Player.prevplay1 = Player.prevplay1 + ("{} of {}".format(i.rank,i.suit)) + ", "
+                        else:
+                            Player.prevplay1 = Player.prevplay1 + i.rank + ", "
+                        i.reveal() #displays the card being played
+
+                    Player.prevplay1 = Player.prevplay1[:-2]
+                    Player.prevplay1 = self.name + " | " + Player.prevplay1
+                    
                     Player.lastPlayType = "FH"
+                    Player.playIsValid = True
                     
             if temp4[0].getRank() == temp4[1].getRank() and temp4[2].getRank() == temp4[3].getRank() == temp4[4].getRank():
-                if temp4[1].getRank() != temp4[2].getRank() and Player.lastPlayMagnitude < indexOrder4[2] and Player.lastPlayType == "FH" or Player.lastPlayType == "":
-                    for i in temp4:
-                        i.reveal()
-                    Player.lastPlayMagnitude = indexOrder4[2]
-                    del self.hand[indexOrder4[4]-1]
-                    del self.hand[indexOrder4[3]-1]
-                    del self.hand[indexOrder4[2]-1]
-                    del self.hand[indexOrder4[1]-1]
-                    del self.hand[indexOrder4[0]-1]
+                if temp4[1].getRank() != temp4[2].getRank() and Player.lastPlayMagnitude < temp4[2].getRankButInteger() and (Player.lastPlayType == "FH" or Player.lastPlayType == ""):
+
+                    Player.lastPlayMagnitude = temp4[2].getRankButInteger()
+
+                    #rotating previous plays
+                    Player.prevplay3 = Player.prevplay2 
+                    Player.prevplay2 = Player.prevplay1
+                    Player.prevplayarray = []
+                    Player.prevplay1 = ""
+                    
+                    for i in range(len(indexOrder4)):
+                        Player.prevplayarray.append(self.hand.pop(indexOrder4[len(indexOrder4) - i - 1] - 1))
+                    Player.prevplayarray.reverse()
+
+                    #formatting the most recent play for display
+                    for i in Player.prevplayarray:
+                        if i.suit != None:
+                            Player.prevplay1 = Player.prevplay1 + ("{} of {}".format(i.rank,i.suit)) + ", "
+                        else:
+                            Player.prevplay1 = Player.prevplay1 + i.rank + ", "
+                        i.reveal() #displays the card being played
+
+                    Player.prevplay1 = Player.prevplay1[:-2]
+                    Player.prevplay1 = self.name + " | " + Player.prevplay1
+                    
                     Player.lastPlayType = "FH"
+                    Player.playIsValid = True
                         
 #Straight Flush
             if temp4[4].getSuit() != None and int(temp4[4].getRankButInteger()) - int(temp4[3].getRankButInteger()) == int(temp4[3].getRankButInteger()) - int(temp4[2].getRankButInteger()) == int(temp4[2].getRankButInteger()) - int(temp4[1].getRankButInteger()) == int(temp4[1].getRankButInteger()) - int(temp4[0].getRankButInteger()) == 1:
                 if temp4[4].getSuit() == temp4[3].getSuit() == temp4[2].getSuit() == temp4[1].getSuit() == temp4[0].getSuit():
-                    if Player.lastPlayType == "" or Player.lastPlayType == "Si" or Player.lastPlayType == "Pa" or Player.lastPlayType == "Tr" or Player.lastPlayType == "Pl" or Player.lastPlayType == "Tu" or Player.lastPlayType == "FH" or Player.lastPlayType == "St" or Player.lastPlayType == "4B" or Player.lastPlayType == "5B" or (Player.lastPlayType == "SF" and Player.lastPlayMagnitude < indexOrder4[4]):
-                        for i in temp4:
-                            i.reveal()
-                        Player.lastPlayMagnitude = indexOrder4[4]
-                        del self.hand[indexOrder4[4]-1]
-                        del self.hand[indexOrder4[3]-1]
-                        del self.hand[indexOrder4[2]-1]
-                        del self.hand[indexOrder4[1]-1]
-                        del self.hand[indexOrder4[0]-1]
+                    if Player.lastPlayType == "" or Player.lastPlayType == "Si" or Player.lastPlayType == "Pa" or Player.lastPlayType == "Tr" or Player.lastPlayType == "Pl" or Player.lastPlayType == "Tu" or Player.lastPlayType == "FH" or Player.lastPlayType == "St" or Player.lastPlayType == "4B" or Player.lastPlayType == "5B" or (Player.lastPlayType == "SF" and Player.lastPlayMagnitude < temp4[1].getRankbutInteger()):
+
+                        Player.lastPlayMagnitude = temp4[4].getRankButInteger
+
+                        #rotating previous plays
+                        Player.prevplay3 = Player.prevplay2 
+                        Player.prevplay2 = Player.prevplay1
+                        Player.prevplayarray = []
+                        Player.prevplay1 = ""
+                        
+                        for i in range(len(indexOrder4)):
+                            Player.prevplayarray.append(self.hand.pop(indexOrder4[len(indexOrder4) - i - 1] - 1))
+                        Player.prevplayarray.reverse()
+
+                        #formatting the most recent play for display
+                        for i in Player.prevplayarray:
+                            if i.suit != None:
+                                Player.prevplay1 = Player.prevplay1 + ("{} of {}".format(i.rank,i.suit)) + ", "
+                            else:
+                                Player.prevplay1 = Player.prevplay1 + i.rank + ", "
+                            i.reveal() #displays the card being played
+
+                        Player.prevplay1 = Player.prevplay1[:-2]
+                        Player.prevplay1 = self.name + " | " + Player.prevplay1
+                    
                         Player.lastPlayType = "SF"
+                        Player.playIsValid = True
             
 #Straight
-                elif Player.lastPlayMagnitude < indexOrder4[4] and Player.lastPlayType == "St" or Player.lastPlayType == "":
-                    for i in temp4:
-                        i.reveal()
-                    Player.lastPlayMagnitude = indexOrder4[4]
-                    del self.hand[indexOrder4[4]-1]
-                    del self.hand[indexOrder4[3]-1]
-                    del self.hand[indexOrder4[2]-1]
-                    del self.hand[indexOrder4[1]-1]
-                    del self.hand[indexOrder4[0]-1]
+                elif Player.lastPlayMagnitude < temp4[4].getRankButInteger() and (Player.lastPlayType == "St" or Player.lastPlayType == ""):
+
+                    Player.lastPlayMagnitude = temp4[4].getRankButInteger()
+
+                    #rotating previous plays
+                    Player.prevplay3 = Player.prevplay2 
+                    Player.prevplay2 = Player.prevplay1
+                    Player.prevplayarray = []
+                    Player.prevplay1 = ""
+                    
+                    for i in range(len(indexOrder4)):
+                        Player.prevplayarray.append(self.hand.pop(indexOrder4[len(indexOrder4) - i - 1] - 1))
+                    Player.prevplayarray.reverse()
+
+                    #formatting the most recent play for display
+                    for i in Player.prevplayarray:
+                        if i.suit != None:
+                            Player.prevplay1 = Player.prevplay1 + ("{} of {}".format(i.rank,i.suit)) + ", "
+                        else:
+                            Player.prevplay1 = Player.prevplay1 + i.rank + ", "
+                        i.reveal() #displays the card being played
+
+                    Player.prevplay1 = Player.prevplay1[:-2]
+                    Player.prevplay1 = self.name + " | " + Player.prevplay1
+                    
                     Player.lastPlayType = "St"
+                    Player.playIsValid = True
 
 #Bomb + Joker Bomb
-        elif idx4 != None:
-            temp5 = [idx1, idx2, idx3, idx4, idx5, idx6, idx7, idx8]
-            for a in range(8):
-                if temp5[7-a] == None:
-                    del temp5[7-a]
-            numberOfElements = len(temp5)
-            temp5 = QUICKsort(temp5)
+        elif Player.playIsValid == False and len(moveIndexList) >= 4:
+            numberOfElements = len(moveIndexList)
+            temp5 = QUICKsort(moveIndexList)
             
-            if idx5 == None:
-                if self.hand[idx1-1].getRank() == self.hand[idx2-1].getRank() == self.hand[idx3-1].getRank() == self.hand[idx4-1].getRank():
-                    if Player.lastPlayType == "" or Player.lastPlayType == "Si" or Player.lastPlayType == "Pa" or Player.lastPlayType == "Tr" or Player.lastPlayType == "Pl" or Player.lastPlayType == "Tu" or Player.lastPlayType == "FH" or Player.lastPlayType == "St" or (Player.lastPlayType == "4B" and Player.lastPlayMagnitude < temp5[3]):
-                        for i in temp5:
-                            self.hand[i-1].reveal()
-                        Player.lastPlayMagnitude = temp5[3]
-                        for j in range(numberOfElements):
-                            del self.hand[temp5[numberOfElements - j - 1] - 1]
+            if numberOfElements == 4:
+                if self.hand[moveIndexList[0]-1].getRank() == self.hand[moveIndexList[1]-1].getRank() == self.hand[moveIndexList[2]-1].getRank() == self.hand[moveIndexList[3]-1].getRank():
+                    if Player.lastPlayType == "" or Player.lastPlayType == "Si" or Player.lastPlayType == "Pa" or Player.lastPlayType == "Tr" or Player.lastPlayType == "Pl" or Player.lastPlayType == "Tu" or Player.lastPlayType == "FH" or Player.lastPlayType == "St" or (Player.lastPlayType == "4B" and Player.lastPlayMagnitude < self.hand[temp5[3]-1].getRankButInteger()):
+
+                        Player.lastPlayMagnitude = self.hand[temp5[3]-1].getRankButInteger()
+                        
+                        #rotating previous plays
+                        Player.prevplay3 = Player.prevplay2 
+                        Player.prevplay2 = Player.prevplay1
+                        Player.prevplayarray = []
+                        Player.prevplay1 = ""
+                        
+                        for i in range(len(temp5)):
+                            Player.prevplayarray.append(self.hand.pop(temp5[len(temp5) - i - 1] - 1))
+                        Player.prevplayarray.reverse()
+
+                        #formatting the most recent play for display
+                        for i in Player.prevplayarray:
+                            if i.suit != None:
+                                Player.prevplay1 = Player.prevplay1 + ("{} of {}".format(i.rank,i.suit)) + ", "
+                            else:
+                                Player.prevplay1 = Player.prevplay1 + i.rank + ", "
+                            i.reveal() #displays the card being played
+
+                        Player.prevplay1 = Player.prevplay1[:-2]
+                        Player.prevplay1 = self.name + " | " + Player.prevplay1
+
                         Player.lastPlayType = "4B"
-                elif self.hand[idx1-1].getSuit() == self.hand[idx2-1].getSuit() == self.hand[idx3-1].getSuit() == self.hand[idx4-1].getSuit() == None:
+                        Player.playIsValid = True
+                elif self.hand[moveIndexList[0]-1].getSuit() == self.hand[moveIndexList[1]-1].getSuit() == self.hand[moveIndexList[2]-1].getSuit() == self.hand[moveIndexList[3]-1].getSuit() == None:
                     for i in temp5: #there is no need to check for validity of this play if 4 jokers are present since this beats any other possible move
                         self.hand[i-1].reveal()
-                    Player.lastPlayMagnitude = temp5[3]
+                    Player.lastPlayMagnitude = self.hand[temp5[3]-1].getRankButInteger()
                     for j in range(numberOfElements):
                         del self.hand[temp5[numberOfElements - j - 1] - 1]
                     Player.lastPlayType = "JB"
+                    Player.playIsValid = True
 
-            elif idx5 != None and idx6 == None:
-                if self.hand[idx1-1].getRank() == self.hand[idx2-1].getRank() == self.hand[idx3-1].getRank() == self.hand[idx4-1].getRank() == self.hand[idx5-1].getRank():
-                    if Player.lastPlayType == "" or Player.lastPlayType == "Si" or Player.lastPlayType == "Pa" or Player.lastPlayType == "Tr" or Player.lastPlayType == "Pl" or Player.lastPlayType == "Tu" or Player.lastPlayType == "FH" or Player.lastPlayType == "St" or Player.lastPlayType == "4B" or (Player.lastPlayType == "5B" and Player.lastPlayMagnitude < temp5[3]):
-                        for i in temp5:
-                            self.hand[i-1].reveal()
-                        Player.lastPlayMagnitude = temp5[3]
-                        for j in range(numberOfElements):
-                            del self.hand[temp5[numberOfElements - j]-1]
+            elif numberOfElements == 5:
+                if self.hand[moveIndexList[0]-1].getRank() == self.hand[moveIndexList[1]-1].getRank() == self.hand[moveIndexList[2]-1].getRank() == self.hand[moveIndexList[3]-1].getRank() == self.hand[moveIndexList[4]-1].getRank():
+                    if Player.lastPlayType == "" or Player.lastPlayType == "Si" or Player.lastPlayType == "Pa" or Player.lastPlayType == "Tr" or Player.lastPlayType == "Pl" or Player.lastPlayType == "Tu" or Player.lastPlayType == "FH" or Player.lastPlayType == "St" or Player.lastPlayType == "4B" or (Player.lastPlayType == "5B" and Player.lastPlayMagnitude < self.hand[temp5[3]-1].getRankButInteger()):
+
+                        Player.lastPlayMagnitude = self.hand[temp5[3]-1].getRankButInteger()
+                        
+                        #rotating previous plays
+                        Player.prevplay3 = Player.prevplay2 
+                        Player.prevplay2 = Player.prevplay1
+                        Player.prevplayarray = []
+                        Player.prevplay1 = ""
+                        
+                        for i in range(len(temp5)):
+                            Player.prevplayarray.append(self.hand.pop(temp5[len(temp5) - i - 1] - 1))
+                        Player.prevplayarray.reverse()
+
+                        #formatting the most recent play for display
+                        for i in Player.prevplayarray:
+                            if i.suit != None:
+                                Player.prevplay1 = Player.prevplay1 + ("{} of {}".format(i.rank,i.suit)) + ", "
+                            else:
+                                Player.prevplay1 = Player.prevplay1 + i.rank + ", "
+                            i.reveal() #displays the card being played
+
+                        Player.prevplay1 = Player.prevplay1[:-2]
+                        Player.prevplay1 = self.name + " | " + Player.prevplay1
+                        
                         Player.lastPlayType = "5B"
+                        Player.playIsValid = True
 
-            elif idx6 != None and idx7 == None:
-                if self.hand[idx1-1].getRank() == self.hand[idx2-1].getRank() == self.hand[idx3-1].getRank() == self.hand[idx4-1].getRank() == self.hand[idx5-1].getRank() == self.hand[idx6-1].getRank():
-                    if Player.lastPlayType == "" or Player.lastPlayType == "Si" or Player.lastPlayType == "Pa" or Player.lastPlayType == "Tr" or Player.lastPlayType == "Pl" or Player.lastPlayType == "Tu" or Player.lastPlayType == "FH" or Player.lastPlayType == "St" or Player.lastPlayType == "4B" or Player.lastPlayType == "5B" or (Player.lastPlayType == "6B" and Player.lastPlayMagnitude < temp5[3]):
-                        for i in temp5:
-                            self.hand[i-1].reveal()
-                        Player.lastPlayMagnitude = temp5[3]
-                        for j in range(numberOfElements):
-                            del self.hand[temp5[numberOfElements - j]-1]
+            elif numberOfElements == 6:
+                if self.hand[moveIndexList[0]-1].getRank() == self.hand[moveIndexList[1]-1].getRank() == self.hand[moveIndexList[2]-1].getRank() == self.hand[moveIndexList[3]-1].getRank() == self.hand[moveIndexList[4]-1].getRank() == self.hand[moveIndexList[5]-1].getRank():
+                    if Player.lastPlayType == "" or Player.lastPlayType == "Si" or Player.lastPlayType == "Pa" or Player.lastPlayType == "Tr" or Player.lastPlayType == "Pl" or Player.lastPlayType == "Tu" or Player.lastPlayType == "FH" or Player.lastPlayType == "St" or Player.lastPlayType == "4B" or Player.lastPlayType == "5B" or (Player.lastPlayType == "6B" and Player.lastPlayMagnitude < self.hand[temp5[3]-1].getRankButInteger()):
+                        
+                        Player.lastPlayMagnitude = self.hand[temp5[3]-1].getRankButInteger()
+
+                        #rotating previous plays
+                        Player.prevplay3 = Player.prevplay2 
+                        Player.prevplay2 = Player.prevplay1
+                        Player.prevplayarray = []
+                        Player.prevplay1 = ""
+                        
+                        for i in range(len(temp5)):
+                            Player.prevplayarray.append(self.hand.pop(temp5[len(temp5) - i - 1] - 1))
+                        Player.prevplayarray.reverse()
+
+                        #formatting the most recent play for display
+                        for i in Player.prevplayarray:
+                            if i.suit != None:
+                                Player.prevplay1 = Player.prevplay1 + ("{} of {}".format(i.rank,i.suit)) + ", "
+                            else:
+                                Player.prevplay1 = Player.prevplay1 + i.rank + ", "
+                            i.reveal() #displays the card being played
+
+                        Player.prevplay1 = Player.prevplay1[:-2]
+                        Player.prevplay1 = self.name + " | " + Player.prevplay1
+                        
                         Player.lastPlayType = "6B"
+                        Player.playIsValid = True
 
-            elif idx7 != None and idx8 == None:
-                if self.hand[idx1-1].getRank() == self.hand[idx2-1].getRank() == self.hand[idx3-1].getRank() == self.hand[idx4-1].getRank() == self.hand[idx5-1].getRank() == self.hand[idx6-1].getRank() == self.hand[idx7-1].getRank():
-                    if Player.lastPlayType == "" or Player.lastPlayType == "Si" or Player.lastPlayType == "Pa" or Player.lastPlayType == "Tr" or Player.lastPlayType == "Pl" or Player.lastPlayType == "Tu" or Player.lastPlayType == "FH" or Player.lastPlayType == "St" or Player.lastPlayType == "4B" or Player.lastPlayType == "5B" or Player.lastPlayType == "6B" or (Player.lastPlayType == "7B" and Player.lastPlayMagnitude < temp5[3]):
-                        for i in temp5:
-                            self.hand[i-1].reveal()
-                        Player.lastPlayMagnitude = temp5[3]
-                        for j in range(numberOfElements):
-                            del self.hand[temp5[numberOfElements - j]-1]
+            elif numberOfElements == 7:
+                if self.hand[moveIndexList[0]-1].getRank() == self.hand[moveIndexList[1]-1].getRank() == self.hand[moveIndexList[2]-1].getRank() == self.hand[moveIndexList[3]-1].getRank() == self.hand[moveIndexList[4]-1].getRank() == self.hand[moveIndexList[5]-1].getRank() == self.hand[moveIndexList[6]-1].getRank():
+                    if Player.lastPlayType == "" or Player.lastPlayType == "Si" or Player.lastPlayType == "Pa" or Player.lastPlayType == "Tr" or Player.lastPlayType == "Pl" or Player.lastPlayType == "Tu" or Player.lastPlayType == "FH" or Player.lastPlayType == "St" or Player.lastPlayType == "4B" or Player.lastPlayType == "5B" or Player.lastPlayType == "6B" or (Player.lastPlayType == "7B" and Player.lastPlayMagnitude < self.hand[temp5[3]-1].getRankButInteger()):
+                        
+                        Player.lastPlayMagnitude = self.hand[temp5[3]-1].getRankButInteger()
+
+                        #rotating previous plays
+                        Player.prevplay3 = Player.prevplay2 
+                        Player.prevplay2 = Player.prevplay1
+                        Player.prevplayarray = []
+                        Player.prevplay1 = ""
+                        
+                        for i in range(len(temp5)):
+                            Player.prevplayarray.append(self.hand.pop(temp5[len(temp5) - i - 1] - 1))
+                        Player.prevplayarray.reverse()
+
+                        #formatting the most recent play for display
+                        for i in Player.prevplayarray:
+                            if i.suit != None:
+                                Player.prevplay1 = Player.prevplay1 + ("{} of {}".format(i.rank,i.suit)) + ", "
+                            else:
+                                Player.prevplay1 = Player.prevplay1 + i.rank + ", "
+                            i.reveal() #displays the card being played
+
+                        Player.prevplay1 = Player.prevplay1[:-2]
+                        Player.prevplay1 = self.name + " | " + Player.prevplay1
+                        
                         Player.lastPlayType = "7B"
+                        Player.playIsValid = True
                         
             else:
-                if self.hand[idx1-1].getRank() == self.hand[idx2-1].getRank() == self.hand[idx3-1].getRank() == self.hand[idx4-1].getRank() == self.hand[idx5-1].getRank() == self.hand[idx6-1].getRank() == self.hand[idx7-1].getRank() == self.hand[idx8-1].getRank():
-                    if Player.lastPlayType == "" or Player.lastPlayType == "Si" or Player.lastPlayType == "Pa" or Player.lastPlayType == "Tr" or Player.lastPlayType == "Pl" or Player.lastPlayType == "Tu" or Player.lastPlayType == "FH" or Player.lastPlayType == "St" or Player.lastPlayType == "4B" or Player.lastPlayType == "5B" or Player.lastPlayType == "6B" or Player.lastPlayType == "7B" or (Player.lastPlayType == "8B" and Player.lastPlayMagnitude < temp5[3]):
-                        for i in temp5:
-                            self.hand[i-1].reveal()
-                        Player.lastPlayMagnitude = temp5[3]
-                        for j in range(numberOfElements):
-                            del self.hand[temp5[numberOfElements - j]-1]
+                if self.hand[moveIndexList[0]-1].getRank() == self.hand[moveIndexList[1]-1].getRank() == self.hand[moveIndexList[2]-1].getRank() == self.hand[moveIndexList[3]-1].getRank() == self.hand[moveIndexList[4]-1].getRank() == self.hand[moveIndexList[5]-1].getRank() == self.hand[moveIndexList[6]-1].getRank() == self.hand[moveIndexList[7]-1].getRank():
+                    if Player.lastPlayType == "" or Player.lastPlayType == "Si" or Player.lastPlayType == "Pa" or Player.lastPlayType == "Tr" or Player.lastPlayType == "Pl" or Player.lastPlayType == "Tu" or Player.lastPlayType == "FH" or Player.lastPlayType == "St" or Player.lastPlayType == "4B" or Player.lastPlayType == "5B" or Player.lastPlayType == "6B" or Player.lastPlayType == "7B" or (Player.lastPlayType == "8B" and Player.lastPlayMagnitude < self.hand[temp5[3]-1].getRankButInteger()):
+                        
+                        Player.lastPlayMagnitude = self.hand[temp5[3]-1].getRankButInteger()
+
+                        #rotating previous plays
+                        Player.prevplay3 = Player.prevplay2 
+                        Player.prevplay2 = Player.prevplay1
+                        Player.prevplayarray = []
+                        Player.prevplay1 = ""
+                        
+                        for i in range(len(temp5)):
+                            Player.prevplayarray.append(self.hand.pop(temp5[len(temp5) - i - 1] - 1))
+                        Player.prevplayarray.reverse()
+
+                        #formatting the most recent play for display
+                        for i in Player.prevplayarray:
+                            if i.suit != None:
+                                Player.prevplay1 = Player.prevplay1 + ("{} of {}".format(i.rank,i.suit)) + ", "
+                            else:
+                                Player.prevplay1 = Player.prevplay1 + i.rank + ", "
+                            i.reveal() #displays the card being played
+
+                        Player.prevplay1 = Player.prevplay1[:-2]
+                        Player.prevplay1 = self.name + " | " + Player.prevplay1
+                        
                         Player.lastPlayType = "8B"
+                        Player.playIsValid = True
 
-#Joker Bomb
-            
+        if Player.playIsValid == False:
+            return(4/0) #this line is run when the move made is invalid in terms of magnitude or type, to give a ZeroDivisionError Exception that asks for another valid user input
+
+        Player.playIsValid = False #resets Player.playIsValid for the next play
 
 
-########################to do list:
-                        #exception handling when an invalid play is made: allow player to make another play
-                            #note: exception handling for Player function playcard() can be done in the "ACTUALGAMECODE" section
-                                #focus on when input isnt int, and when input is out of range
-                        #ask players what move they would like to make, and use input() to trigger other functions accordingly
 
-                        #implement grouping
-                        #implement de-grouping
+class Team: #defines the class for a team ("Blue" or "Red") of players
 
-            
+    def __init__(self, ename): #initialises the team
+        self.name = ename
+        self.members = []
+        self.inplay = True
+        self.level = 2
+
+    def addmember(self, newmember): #adds a member to the team. newmember is of class Player
+        self.members.append(newmember)
+        newmember.team = self.name #edits the team variable of the player as well
+
+    def changelevel(self, levelraise): #changes the saved data in levelsSaveFile.txt
+        self.level += levelraise
+        with open("levelsSaveFile.txt", "r") as LEVELSINFO:
+            fileContents = LEVELSINFO.read()
+        if self.name == "Blue Team" and self.level < 10:
+            fileContents = "0" + str(self.level) + fileContents[2:]
+            with open("levelsSaveFile.txt", "w") as LEVELSINFO:
+                LEVELSINFO.write(fileContents)
+        elif self.name == "Blue Team" and self.level >= 10:
+            fileContents = str(self.level) + fileContents[2:]
+            with open("levelsSaveFile.txt", "w") as LEVELSINFO:
+                LEVELSINFO.write(fileContents)
+        elif self.name == "Red Team" and self.level < 10:
+            fileContents = fileContents[:-2] + "0" + str(self.level)
+            with open("levelsSaveFile.txt", "w") as LEVELSINFO:
+                LEVELSINFO.write(fileContents)
+        elif self.name == "Red Team" and self.level >= 10:
+            fileContents = fileContents[:-2] + str(self.level)
+            with open("levelsSaveFile.txt", "w") as LEVELSINFO:
+                LEVELSINFO.write(fileContents)
+
+
 
 #ACTUALGAMECODE===ACTUALGAMECODE===ACTUALGAMECODE===ACTUALGAMECODE#
 #ACTUALGAMECODE===ACTUALGAMECODE===ACTUALGAMECODE===ACTUALGAMECODE#
 #ACTUALGAMECODE===ACTUALGAMECODE===ACTUALGAMECODE===ACTUALGAMECODE#
 
+#below code initialises the deck, players and teams
 DEALPILE = Deck()
 player01 = Player(pname01)
 player02 = Player(pname02)
@@ -475,5 +835,317 @@ player02.addtohand(DEALPILE, 27)
 player03.addtohand(DEALPILE, 27)
 player04.addtohand(DEALPILE, 27)
 
-if RoundNumber == 1:
-    pendingPlay = input(pname01 +", please type in the indexes of the cards you wish to play, separated by only commas: \n").split(",")
+teamb = Team("Blue Team")
+teamr = Team("Red Team")
+teamb.addmember(player01)
+teamb.addmember(player03)
+teamr.addmember(player02)
+teamr.addmember(player04)
+
+with open("levelsSaveFile.txt", "r") as LEVELSINFO: #this block loads the levels of the teams based on data present in levelsSaveFile.txt
+    tempstring = LEVELSINFO.read()
+    teamb.level = int(tempstring[:2])
+    teamr.level = int(tempstring[-2:])
+
+first = "" #these denote the positions of players e.g. if a player comes in first, they will be put in the string for first.\
+second = ""
+third = ""
+fourth = ""
+
+pList = [player01, player02, player03, player04] #this is a list of the players for easier indexing
+MODIFIEDpList = [player01, player02, player03, player04] #this is a list of the players still in the game
+passCount = 0 #counter for number of consecutive passes in a row. if this variable holds a value of 3, this means that no other player wishes to beat the current card in the round, starting the next round
+skiptopartner = False #this indicates whether the following player should be the partner or not (becomes True when a player wins, which skips directly to the partner to make a play)
+
+
+while True: #very long while loop
+    try:
+        commonBool = False #commonBool indicates validity of play in this whole loop
+
+        if pList[currentPlayer].hand == [] and pList[currentPlayer].ingame == False: #if the player has been out of the game for more than a round already
+            currentPlayer = (currentPlayer + 1) % 4 #just continues on to the next player
+        
+        if pList[currentPlayer].hand != []: #if the player is not out of the game yet
+            
+            for i in pList: #warning system if any other player has less than 10 cards and is still in the game
+                if i != pList[currentPlayer] and 0 < len(i.hand) <= 10:
+                    print("WARNING: " + i.name + " has only " + str(len(i.hand)) + " card(s) left!")
+
+            print("\nYour hand:") #shows the players hand for them to make a play
+            pList[currentPlayer].showhand()
+
+            print("\nPrevious plays (only the 3 most recent ones are shown):\n") #shows the 3 most recent plays
+            print(Player.prevplay3)
+            print(Player.prevplay2)
+            print(Player.prevplay1 + "\n")
+            
+            strMoveInput = input((pList[currentPlayer]).givename() +", please type 'PASS' (caps-sensitive) to pass your turn or type in the indexes of the cards you wish to play, separated by only commas: \n")
+            #note that the above line works by identifying the winner of the previous round for them to start. since currentPlayer defaults to 0, player 1 always begins the game
+
+        
+            if strMoveInput == "": #blank string entered, player is prompted to enter a valid play
+                print("Please enter at least one card to play or 'PASS'.")
+    
+            elif strMoveInput != "PASS": #when the player has made a play that isn't passing, checks validity and plays the move if valid     
+                pendingPlay = list(map(int, (strMoveInput).split(","))) #exceptions, if any, should occur here
+                pendingPlay = QUICKsort(pendingPlay)
+                for i in range(len(pendingPlay) - 1):
+                    if pendingPlay[i] == pendingPlay[i+1]:
+                        print("Raises" + 1 + "Error") #this line is run when the move made contains duplicate indexes, which triggers TypeError Exception
+
+                pList[currentPlayer].playcard(pendingPlay)              #exceptions also may occur here
+                passCount = 0 #resets passCount since a play that isn't passing has been made
+                commonBool = True #indicates play is valid
+                print("=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======")
+                # ^this hopefully convinces the player to not scroll up when making their move, stopping them from seeing other players' cards
+            
+            elif strMoveInput == "PASS": #player passes their turn, updates previous plays accordingly and adds to passCount
+                passCount += 1
+                print(pList[currentPlayer].name + " has passed their turn.")
+                Player.prevplay3 = Player.prevplay2
+                Player.prevplay2 = Player.prevplay1
+                Player.prevplay1 = pList[currentPlayer].name + " | Pass"
+                commonBool = True #passing is also a valid play
+                print("=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======\n=======DON'T SCROLL UP=======")
+                # ^this hopefully convinces the player to not scroll up when making their move, stopping them from seeing other players' cards
+
+            #the code below in the (if elif elif) blocks indicate the triggers for starting a new round (i.e. the number of players that have passed consecutively equals the total number of players still in the game minus one)
+            if len(MODIFIEDpList) == 4:
+                if passCount == 3 and skiptopartner == False:
+                    RoundNumber += 1
+                    print("A new round has started. It is currently Round " + str(RoundNumber) + ".")
+                    passCount = 0
+                    Player.lastPlayType = ""
+                    Player.lastPlayMagnitude = 0
+
+                elif passCount == 3 and skiptopartner == True:
+                    RoundNumber += 1
+                    print("A new round has started. It is currently Round " + str(RoundNumber) + ".")
+                    passCount = 0
+                    Player.lastPlayType = ""
+                    Player.lastPlayMagnitude = 0
+                    skiptopartner = False
+
+            elif len(MODIFIEDpList) == 3:
+                if passCount == 2 and skiptopartner == False:
+                    RoundNumber += 1
+                    print("A new round has started. It is currently Round " + str(RoundNumber) + ".")
+                    passCount = 0
+                    Player.lastPlayType = ""
+                    Player.lastPlayMagnitude = 0
+
+                elif passCount == 2 and skiptopartner == True:
+                    RoundNumber += 1
+                    print("A new round has started. It is currently Round " + str(RoundNumber) + ".")
+                    passCount = 0
+                    Player.lastPlayType = ""
+                    Player.lastPlayMagnitude = 0
+                    skiptopartner = False
+
+            elif len(MODIFIEDpList) == 2:
+                if passCount == 1:
+                    RoundNumber += 1
+                    print("A new round has started. It is currently Round " + str(RoundNumber) + ".")
+                    passCount = 0
+                    Player.lastPlayType = ""
+                    Player.lastPlayMagnitude = 0
+
+        if pList[currentPlayer].hand == [] and pList[currentPlayer].ingame == True: #the case where the player has just played all their remaining cards
+            RoundNumber += 1 #moves to next round
+            print((pList[currentPlayer]).givename() + " has finished playing all their cards!")
+            print("A new round has started. It is currently Round " + str(RoundNumber) + ".")
+            passCount = 0 #defaults everything
+            commonBool = True
+            Player.lastPlayType = ""
+            Player.lastPlayMagnitude = 0
+            pList[currentPlayer].togglestatus()
+
+            #the code below in the (if elif elif) blocks indicate the triggers for placing the player as first, second or third and also toggling whether the current game has ended or not
+            if first == "":
+                first = pList[currentPlayer]
+                MODIFIEDpList.remove(pList[currentPlayer])
+                skiptopartner = True
+                
+            elif first != "" and second == "":
+                second = pList[currentPlayer]
+                MODIFIEDpList.remove(pList[currentPlayer])
+                if pList[(currentPlayer + 2) % 4].ingame == True:
+                    skiptopartner = True
+                else:
+                    gameFinished = True #partner first place, self second place --> +3 level for the team
+                    for i in MODIFIEDpList:
+                        i.togglestatus()
+                
+            elif second != "" and third == "":
+                third = pList[currentPlayer]
+                MODIFIEDpList.remove(pList[currentPlayer]) #at this point there's one player remaining in MODIFIEDpList, they are last place
+                fourth = MODIFIEDpList[0]
+                gameFinished = True
+                MODIFIEDpList[0].togglestatus()
+
+        if skiptopartner == True and commonBool == True:
+            currentPlayer = (currentPlayer + 2) % 4 #changes the current player to the partner
+            skiptopartner = False
+        elif skiptopartner == False and commonBool == True:
+            currentPlayer = (currentPlayer + 1) % 4 #changes the current player to the next player, running a cyclic loop of length 4 with currentPlayer = n suggesting it is player (n+1)'s turn to move
+                
+#level bonus for winning team
+        if gameFinished == True:
+            placehold = random.randint(1, 2)
+            if first.giveteam() == "Blue Team" and second.giveteam() == "Blue Team":
+                teamb.changelevel(3)
+                if placehold == 1:
+                    currentPlayer = 1
+                else:
+                    currentPlayer = 3
+            elif first.giveteam() == "Blue Team" and third.giveteam() == "Blue Team":
+                teamb.changelevel(2)
+                for i in range(3):
+                    if pList[i] == fourth:
+                        currentPlayer = i
+            elif first.giveteam() == "Blue Team" and fourth.giveteam() == "Blue Team":
+                teamb.changelevel(1)
+                for i in range(3):
+                    if pList[i] == fourth:
+                        currentPlayer = i
+            elif first.giveteam() == "Red Team" and second.giveteam() == "Red Team":
+                teamr.changelevel(3)
+                if placehold == 1:
+                    currentPlayer = 0
+                else:
+                    currentPlayer = 2
+            elif first.giveteam() == "Red Team" and third.giveteam() == "Red Team":
+                teamr.changelevel(2)
+                for i in range(3):
+                    if pList[i] == fourth:
+                        currentPlayer = i
+            elif first.giveteam() == "Red Team" and fourth.giveteam() == "Red Team":
+                teamr.changelevel(1)
+                for i in range(3):
+                    if pList[i] == fourth:
+                        currentPlayer = i
+
+            #rewriting files and variables to account for change in levels and change in team in play (if any)
+            if first.giveteam() == "Blue Team":
+                MODIFIEDascOrder = INITIALascOrder
+                with open("teamSaveFile.txt", "w") as TEAMINFO:
+                    TEAMINFO.write("Blue Team")
+                if teamb.level <= 10:
+                    MODIFIEDascOrder.remove(str(teamb.level))
+                    MODIFIEDascOrder.insert(-2, str(teamb.level))
+                elif teamb.level == 11:
+                    MODIFIEDascOrder.remove("J")
+                    MODIFIEDascOrder.insert(-2, "J")
+                elif teamb.level == 12:
+                    MODIFIEDascOrder.remove("Q")
+                    MODIFIEDascOrder.insert(-2, "Q")
+                elif teamb.level == 13:
+                    MODIFIEDascOrder.remove("K")
+                    MODIFIEDascOrder.insert(-2, "K")
+                elif teamb.level == 14:
+                    MODIFIEDascOrder.remove("A")
+                    MODIFIEDascOrder.insert(-2, "A")
+                else:
+                    fullgameDone = True #when the level of a team exceeds 14, this means they have won the whole game
+
+            elif first.giveteam() == "Red Team": #same as the previous block of code but for the other team
+                MODIFIEDascOrder = INITIALascOrder
+                with open("teamSaveFile.txt", "w") as TEAMINFO:
+                    TEAMINFO.write("Red Team")
+                if teamr.level <= 10:
+                    MODIFIEDascOrder.remove(str(teamr.level))
+                    MODIFIEDascOrder.insert(-2, str(teamr.level))
+                elif teamr.level == 11:
+                    MODIFIEDascOrder.remove("J")
+                    MODIFIEDascOrder.insert(-2, "J")
+                elif teamr.level == 12:
+                    MODIFIEDascOrder.remove("Q")
+                    MODIFIEDascOrder.insert(-2, "Q")
+                elif teamr.level == 13:
+                    MODIFIEDascOrder.remove("K")
+                    MODIFIEDascOrder.insert(-2, "K")
+                elif teamr.level == 14:
+                    MODIFIEDascOrder.remove("A")
+                    MODIFIEDascOrder.insert(-2, "A")
+                else:
+                    fullgameDone = True
+                        
+            MODIFIEDpList = [player01, player02, player03, player04] #defaults
+            INITIALascOrder = ['2','3','4','5','6','7','8','9','10','J','Q','K','A','Black Joker','Red Joker'] #added this line here to reset INITIALascOrder because it kept taking on the value of MODIFIEDascOrder
+            passCount = 0 #defaults
+            skiptopartner = False #defaults
+
+
+#moving on to a new game
+            while True and fullgameDone == False:
+                newgame = input("Blue Team is currently on level " + str(teamb.level) + " and Red Team is on level " + str(teamr.level) + "! \nWould you like to move on to the next game? Type Y (caps-sensitive) to start the next game and N to stop: ")
+                if newgame != "Y" and newgame != "N":
+                    print("Please type a valid input! Note that Y and N are caps-sensitive.")
+                elif newgame == "Y": #user wishes to play another game
+                    print("Starting new game...") #defaulting everything
+                    player01.clearhand()
+                    player02.clearhand()
+                    player03.clearhand()
+                    player04.clearhand()
+
+                    DEALPILE = Deck()
+
+                    player01.addtohand(DEALPILE, 27)
+                    player02.addtohand(DEALPILE, 27)
+                    player03.addtohand(DEALPILE, 27)
+                    player04.addtohand(DEALPILE, 27)
+
+                    first = ""
+                    second = ""
+                    third = ""
+                    fourth = ""
+
+                    Player.lastPlayType = ""
+                    Player.lastPlayMagnitude = 0
+                    gameFinished = False
+
+                    for i in pList:
+                        i.togglestatus()
+                        
+                    print("Done!") #confirmation message!
+                    break
+                    
+                elif newgame == "N": #user wishes to stop playing
+                    while True: #while loop
+                        saveorleave = input("Enter S to save your current levels or X to quit the game completely (this will reset all game data): ")
+                        if saveorleave != "S" and saveorleave != "X":
+                            print("Please type a valid input! Note that S and X are caps-sensitive.")
+                        elif saveorleave == "X": #defaults the content of the files
+                            with open("levelsSaveFile.txt", "w") as LEVELSINFO:
+                                LEVELSINFO.write("02 02")
+                            with open("teamSaveFile.txt", "w") as TEAMINFO:
+                                TEAMINFO.write("Blue Team")
+                            sys.exit() #ends the code
+                            
+                        elif saveorleave == "S": #doesn't default anything and leaves the files be
+                            raise StopIteration #raises StopIteration exception to break out of all current loops
+
+            if fullgameDone == True: #if the full game has finished
+                print(teamInPlay + " has won! The current game has ended. Please run the program again to play a new match with default settings.") 
+                os.remove("levelsSaveFile.txt") #deleting the files for defaulting on next run
+                os.remove("teamSaveFile.txt")
+                raise StopIteration #breaks out of all loops
+                        
+                    
+
+
+    except StopIteration: #user decides to save the current game, breaking out of all current while loops
+        break
+
+    except ZeroDivisionError: #play magnitude error, play type incorrect
+        print("Please make sure that your play is of a valid type if you are starting a round, or of the same type as and greater than the previous play if you are not!")
+
+    except TypeError: #duplicate indexes
+        print("Please make sure that the indexes entered do not have duplicates.")
+
+    except IndexError: #index out of range
+        print("Please make sure that all indexes you have entered are within the range of your hand!")
+
+    except: #incorrect input, incorrect format
+        print("Please enter the indexes (as numbers) of the cards you wish to play separated by only commas and no spaces. \n(e.g. 5,6,7,10,11)")
+ 
