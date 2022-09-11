@@ -29,5 +29,7 @@
 > In this week, I planned to finish recognition of valid moves and begin on further logic (in regards to previous play magnitude and type). This was achieved swiftly because all my examinations were over and I only had one or two weighted submissions left, so I also began on exception handling (both try-except and while loops) after completing my objectives. I will likely not be able to work on the code tomorrow (29th August) due to CCA until 6.45pm, but I will try to work on it at night (if time and energy allows). Referring to my original proposal, so far Goals 1, 2, 3 and 6 have been achieved, although I have already thought of simple ways to make Goals 4, 5, 7 and 8 work: it's just a matter of whether I procrastinate actual coding or not. :P
 
 ## Week 10 (30 Aug - 5 Sep)
+> I did not do much work this week as I was practicing for a Chinese Orchestra ensemble, though I think I did some work but did not update devlog as I had forgotten to. Next week I plan to finish my whole code.
 
 ## Sep Holiday (5 Sep - 10 Sep) **Submission date is 10 Sep**
+> This week I completed the whole code, finishing exception handling, the whole game process, file I/O,  resetting the game, display and everything, the project is done.
